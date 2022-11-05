@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
+import BaseTutorial from './BaseTutorial.js';
 
-class BubbleSort extends Component {
+class BubbleSort extends BaseTutorial {
     render () {
         return (
             <div>
