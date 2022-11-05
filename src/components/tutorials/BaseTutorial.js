@@ -3,17 +3,6 @@ import React, {Component} from 'react';
 class BaseTutorial extends Component {
     steps = [];
 
-    execute(step) {
-        return step.info;
-    }
-
-    run() {
-        for (let i = 0; i < this.steps.length(); i++) {
-            let info = this.execute(this.steps[i]);
-
-        }
-    }
-
     BaseTutorial(steps) {
         this.steps = steps;
     }
@@ -24,6 +13,13 @@ class BaseTutorial extends Component {
         array.splice(to, 0, num);
     }
 
+    nextStep() {
+        this.setState({step: this.state.step + 1, correct: null})
+    }
+
+    nextButton() { 
+        return <button onClick={() => {this.nextStep()}}>Next step</button>;
+    }
 }
 
 export default BaseTutorial;
