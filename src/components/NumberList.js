@@ -4,15 +4,17 @@ class NumberList extends Component {
     render () {
         return (
             <div>
-                <ul>
-                    <li>5</li>
-                    <li>4</li>
-                    <li>3</li>
-                    <li>1</li>
-                    <li>2</li>
-                </ul>
+                {this.state.numbers.map((num) => {
+                    return(<p>num</p>)
+                })}
             </div>
-            )
+        )
+    }
+
+    constructor (numbers) {
+        super();
+
+        this.state.numbers = numbers
     }
 }
 

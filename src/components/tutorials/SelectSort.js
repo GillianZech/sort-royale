@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class InsertionSort extends Component {
+class SelectSort extends Component {
     render () {
         return (
             <div>
@@ -10,8 +10,8 @@ class InsertionSort extends Component {
     }
 
     constructor () {
-        let startingNumbers = [5, 4, 1, 3, 2];
+        let startingNumbers = [5, 2, 9, 6, 3];
     }
 }
 
-export default InsertionSort;
+export default SelectSort;

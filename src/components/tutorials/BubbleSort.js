@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class InsertionSort extends Component {
+class BubbleSort extends Component {
     render () {
         return (
             <div>
@@ -10,8 +10,8 @@ class InsertionSort extends Component {
     }
 
     constructor () {
-        let startingNumbers = [5, 4, 1, 3, 2];
+        let startingNumbers = [3, 6, 5, 8, 4];
     }
 }
 
-export default InsertionSort;
+export default BubbleSort;

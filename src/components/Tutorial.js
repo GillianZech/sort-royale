@@ -4,6 +4,7 @@ import InsertionSort from './tutorials/InsertionSort';
 import MergeSort from './tutorials/MergeSort';
 import QuickSort from './tutorials/QuickSort';
 import SelectSort from './tutorials/SelectSort';
+import DuplicateTutorial from './tutorials/DuplicateTutorial';
 
 class Tutorial extends Component {
     noTutorialChosen () {
@@ -45,7 +46,7 @@ class Tutorial extends Component {
             case "tips":
                 return <MergeSort />
             case "duplicate":
-                return < />
+                return <DuplicateTutorial />
             default:
                 return null
         }
