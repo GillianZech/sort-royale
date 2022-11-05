@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
+import BaseTutorial from './BaseTutorial.js';
 
-class SelectSort extends Component {
+class SelectSort extends BaseTutorial {
     first () {
         return (
             <div>
@@ -15,7 +16,7 @@ class SelectSort extends Component {
                     <li>2</li>
                     <li>7</li>
                 </ul>
-                <p>In the first step, check whether or not the left index of the array is greater than the right index. If so, calculate the midpoint using the formula m= l+(r-1)/2. Where is the midpoint?</p>
+                <p>In the first step, check whether or not the left index of the array is greater than the right index (in other words, is the left index). If so, calculate the midpoint using the formula m= l+(r-1)/2. Where is the midpoint?</p>
                 <button onClick={() => {this.setState({correct: true})}}>After 6</button>
                 <button onClick={() => {this.setState({correct: false})}}>After 1</button>
                 {this.state.correct ? 
@@ -28,13 +29,21 @@ class SelectSort extends Component {
     render () {
         return (
             <div>
-
+                {this.steps[this.state.step].call(this)}
             </div>
         )
     }
 
     constructor () {
-        let startingNumbers = [3, 4, 1, 6, 5, 2, 7];
+        super();
+        this.state = {
+            left_index: 1,
+            right_index: 2,
+            step: 0,
+            correct: null,
+            numbers: [5, 2, 9, 6, 3]
+        }
+        this.steps = [this.step_one, this.step_two, this.step_three, this.step_four];
     }
 }
 
