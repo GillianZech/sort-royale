@@ -1,0 +1,74 @@
+/* CSV */
+050517,dceed1,eb4600,707078,30bced
+
+/* With # */
+#050517, #dceed1, #eb4600, #707078, #30bced
+
+/* Array */
+["050517","dceed1","eb4600","707078","30bced"]
+
+/* Object */
+{"Xiketic":"050517","Nyanza":"dceed1","Flame":"eb4600","Sonic Silver":"707078","Cyan Process":"30bced"}
+
+/* Extended Array */
+[{"name":"Xiketic","hex":"050517","rgb":[5,5,23],"cmyk":[78,78,0,91],"hsb":[240,78,9],"hsl":[240,64,5],"lab":[2,3,-9]},{"name":"Nyanza","hex":"dceed1","rgb":[220,238,209],"cmyk":[8,0,12,7],"hsb":[97,12,93],"hsl":[97,46,88],"lab":[92,-11,12]},{"name":"Flame","hex":"eb4600","rgb":[235,70,0],"cmyk":[0,70,100,8],"hsb":[18,100,92],"hsl":[18,100,46],"lab":[54,61,65]},{"name":"Sonic Silver","hex":"707078","rgb":[112,112,120],"cmyk":[7,7,0,53],"hsb":[240,7,47],"hsl":[240,3,45],"lab":[47,2,-4]},{"name":"Cyan Process","hex":"30bced","rgb":[48,188,237],"cmyk":[80,21,0,7],"hsb":[196,80,93],"hsl":[196,84,56],"lab":[71,-20,-35]}]
+
+/* XML */
+<palette>
+  <color name="Xiketic" hex="050517" r="5" g="5" b="23" />
+  <color name="Nyanza" hex="dceed1" r="220" g="238" b="209" />
+  <color name="Flame" hex="eb4600" r="235" g="70" b="0" />
+  <color name="Sonic Silver" hex="707078" r="112" g="112" b="120" />
+  <color name="Cyan Process" hex="30bced" r="48" g="188" b="237" />
+</palette>
+
+
+/* CSS HEX */
+--xiketic: #050517ff;
+--nyanza: #dceed1ff;
+--flame: #eb4600ff;
+--sonic-silver: #707078ff;
+--cyan-process: #30bcedff;
+
+/* CSS HSL */
+--xiketic: hsla(240, 64%, 5%, 1);
+--nyanza: hsla(97, 46%, 88%, 1);
+--flame: hsla(18, 100%, 46%, 1);
+--sonic-silver: hsla(240, 3%, 45%, 1);
+--cyan-process: hsla(196, 84%, 56%, 1);
+
+/* SCSS HEX */
+$xiketic: #050517ff;
+$nyanza: #dceed1ff;
+$flame: #eb4600ff;
+$sonic-silver: #707078ff;
+$cyan-process: #30bcedff;
+
+/* SCSS HSL */
+$xiketic: hsla(240, 64%, 5%, 1);
+$nyanza: hsla(97, 46%, 88%, 1);
+$flame: hsla(18, 100%, 46%, 1);
+$sonic-silver: hsla(240, 3%, 45%, 1);
+$cyan-process: hsla(196, 84%, 56%, 1);
+
+/* SCSS RGB */
+$xiketic: rgba(5, 5, 23, 1);
+$nyanza: rgba(220, 238, 209, 1);
+$flame: rgba(235, 70, 0, 1);
+$sonic-silver: rgba(112, 112, 120, 1);
+$cyan-process: rgba(48, 188, 237, 1);
+
+/* SCSS Gradient */
+$gradient-top: linear-gradient(0deg, #050517ff, #dceed1ff, #eb4600ff, #707078ff, #30bcedff);
+$gradient-right: linear-gradient(90deg, #050517ff, #dceed1ff, #eb4600ff, #707078ff, #30bcedff);
+$gradient-bottom: linear-gradient(180deg, #050517ff, #dceed1ff, #eb4600ff, #707078ff, #30bcedff);
+$gradient-left: linear-gradient(270deg, #050517ff, #dceed1ff, #eb4600ff, #707078ff, #30bcedff);
+$gradient-top-right: linear-gradient(45deg, #050517ff, #dceed1ff, #eb4600ff, #707078ff, #30bcedff);
+$gradient-bottom-right: linear-gradient(135deg, #050517ff, #dceed1ff, #eb4600ff, #707078ff, #30bcedff);
+$gradient-top-left: linear-gradient(225deg, #050517ff, #dceed1ff, #eb4600ff, #707078ff, #30bcedff);
+$gradient-bottom-left: linear-gradient(315deg, #050517ff, #dceed1ff, #eb4600ff, #707078ff, #30bcedff);
+$gradient-radial: radial-gradient(#050517ff, #dceed1ff, #eb4600ff, #707078ff, #30bcedff);
+
+<!-- Coolors Palette Widget -->
+      <script src="https://coolors.co/palette-widget/widget.js"></script>
+      <script data-id="014299300748687394">new CoolorsPaletteWidget("014299300748687394", ["050517","dceed1","eb4600","707078","30bced"]); </script>

@@ -13,11 +13,11 @@ class Tutorial extends Component {
                 <p>Welcome to the tutorial!</p>
                 <p>Choose a sorting algorithm to look at:</p>
                 <ul>
-                    <li><button>Bubble Sort</button></li>
-                    <li><button>Insertion Sort</button></li>
-                    <li><button>Merge Sort</button></li>
-                    <li><button>Quick Sort</button></li>
-                    <li><button>Select Sort</button></li>
+                    <li><button onClick={()=>{this.setState({chosen_tutorial: "bubble sort"})}}>Level 1. Bubble Sort</button></li>
+                    <li><button onClick={()=>{this.setState({chosen_tutorial: "select sort"})}}>Level 2. Select Sort</button></li>
+                    <li><button onClick={()=>{this.setState({chosen_tutorial: "insertion sort"})}}>Level 3. Insertion Sort</button></li>
+                    <li><button onClick={()=>{this.setState({chosen_tutorial: "merge sort"})}}>Level 4. Merge Sort</button></li>
+                    <li><button onClick={()=>{this.setState({chosen_tutorial: "quick sort"})}}>Level 5. Quick Sort</button></li>
                 </ul>
                 <p>Or, take a look at these other helpful tutorials:</p>
                 <ul>
@@ -31,22 +31,22 @@ class Tutorial extends Component {
 
     chooseTutorial (tutorial) {
         switch(tutorial) {
-            case "bubble":
-                return <BubbleSort />
-            case "insertion":
-                return <InsertionSort />
-            case "merge":
-                return <MergeSort />
-            case "quick":
-                return <QuickSort />
-            case "select":
-                return <SelectSort />
+            case "bubble sort":
+                return (<BubbleSort />)
+            case "insertion sort":
+                return (<InsertionSort />)
+            case "merge sort":
+                return (<MergeSort />)
+            case "quick sort":
+                return (<QuickSort />)
+            case "select sort":
+                return (<SelectSort />)
             case "howtoplay":
-                return <MergeSort />
+                return (<MergeSort />)
             case "tips":
-                return <MergeSort />
+                return (<MergeSort />)
             case "duplicate":
-                return <DuplicateTutorial />
+                return (<DuplicateTutorial />)
             default:
                 return null
         }
@@ -55,7 +55,8 @@ class Tutorial extends Component {
     render () {
         return (
             <div>
-                {this.state.chosen_tutorial === null ? this.noTutorialChosen() : this.chooseTutorial()}
+                {this.state.chosen_tutorial === null ? this.noTutorialChosen() : this.chooseTutorial(this.state.chosen_tutorial)}
+                {console.log(this.state.chosen_tutorial)}
             </div>
         )
     }
