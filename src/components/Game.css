@@ -1,3 +1,15 @@
 .numbers {
-    
+    display: flex;
+    flex-flow: row wrap;
+    list-style-type: none;
+    /* margin: 0; */
+    /* padding: 0; */
+}
+
+.numbers li {
+    margin: 10px;
+}
+
+body {
+    /* background-color: hsla(97, 46%, 88%, 1); */
 }

@@ -56,7 +56,6 @@ class Tutorial extends Component {
         return (
             <div>
                 {this.state.chosen_tutorial === null ? this.noTutorialChosen() : this.chooseTutorial(this.state.chosen_tutorial)}
-                {console.log(this.state.chosen_tutorial)}
             </div>
         )
     }

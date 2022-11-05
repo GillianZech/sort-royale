@@ -21,7 +21,6 @@ class Game extends Component {
             previous = num;
             i += 1;
         }
-        console.log(numbers)
         this.setState({number_list: numbers})
         return (numbers);
     }
