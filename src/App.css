@@ -3,12 +3,15 @@
   justify-content: center;
   align-items: center;
   flex-flow: column nowrap;
-  /* width: 100%; */
+}
+
+header {
+  display: none;
+  
 }
 
 .logo {
-  /* min-width: 50%; */
-  height: 300px;
+  margin: 50px;
 }
 
 .logo p {
@@ -20,35 +23,64 @@
 nav {
   width: 75%;
   display: flex;
+  flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
 }
 
-/* ul {
-  list-style-type: none;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-around;
-  align-items: space-around;
-  width: inherit;
-}
-
-li {
-  width: inherit;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-around;
-  align-items: space-around;
-} */
-
 button {
-  width: inherit;
-  background-color: blue;
-  
-  padding: 20%;
-  margin: 20%;
+  font-family: Josefin Sans;
+  width: 50%;
+  min-width: 500px;
+  border-radius: 20px;
+  background-color: #30bcedff;
+  font-size: 3rem;
+  padding: 3%;
+  margin: 5%;
+  margin-top: 0;
+  margin-bottom: 20px;
+  border: none;
 }
 
-/* button :hover {
+footer {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
 
-} */
+button:hover {
+  background-color: blue;
+}
+
+@media screen and (max-width: 1080px) {
+  .logo {
+    display: none;
+  }
+
+  header {
+    display: block;
+    /* height: 300px; */
+  }
+
+  header {
+    font-size: 0.7rem;
+    margin: 50px;
+  }
+
+  header p {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    color: #050517ff;
+  }
+
+  button {
+    font-size: 2rem;
+    min-width: 200px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  button {
+    font-size: 1rem;
+  }
+}

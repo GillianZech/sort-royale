@@ -33,22 +33,39 @@ class App extends Component {
       return <button onClick={()=>{this.setState({screen: null})}}>Back to title screen</button>
     } else {
       return (
-        <body className='title-screen'>
-          <div className="logo"> # TODO 
+        <div className='title-screen'>
+          <div className="logo"> 
+            <p>░██████╗░█████╗░██████╗░████████╗  ██████╗░░█████╗░██╗░░░██╗░█████╗░██╗░░░░░███████╗</p>
+            <p>██╔════╝██╔══██╗██╔══██╗╚══██╔══╝  ██╔══██╗██╔══██╗╚██╗░██╔╝██╔══██╗██║░░░░░██╔════╝</p>
+            <p>╚█████╗░██║░░██║██████╔╝░░░██║░░░  ██████╔╝██║░░██║░╚████╔╝░███████║██║░░░░░█████╗░░</p>
+            <p>░╚═══██╗██║░░██║██╔══██╗░░░██║░░░  ██╔══██╗██║░░██║░░╚██╔╝░░██╔══██║██║░░░░░██╔══╝░░</p>
+            <p>██████╔╝╚█████╔╝██║░░██║░░░██║░░░  ██║░░██║╚█████╔╝░░░██║░░░██║░░██║███████╗███████╗</p>
+            <p>╚═════╝░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░  ╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚══════╝</p>
           </div>
-          {/* <nav>
-            <ul>
-              <li><button onClick={() => {this.setState({screen: "tutorial"})}}>Tutorial</button></li>
-              <li><button onClick={() => {this.setState({screen: "singleplayer"})}}>Single Player</button></li>
-              <li><button onClick={() => {this.setState({screen: "multiplayer"})}}>Multiplayer</button></li>
-            </ul>
-          </nav> */}
+          <header>
+            <p>░░░░░░░░░██████╗░█████╗░██████╗░████████╗░░░░░░░░</p>
+            <p>░░░░░░░░██╔════╝██╔══██╗██╔══██╗╚══██╔══╝░░░░░░░░</p>
+            <p>░░░░░░░░╚█████╗░██║░░██║██████╔╝░░░██║░░░░░░░░░░░</p>
+            <p>░░░░░░░░░╚═══██╗██║░░██║██╔══██╗░░░██║░░░░░░░░░░░</p>
+            <p>░░░░░░░░██████╔╝╚█████╔╝██║░░██║░░░██║░░░░░░░░░░░</p>
+            <p>░░░░░░░░╚═════╝░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░░░░░░░░░</p>
+            <p>██████╗░░█████╗░██╗░░░██╗░█████╗░██╗░░░░░███████╗</p>
+            <p>██╔══██╗██╔══██╗╚██╗░██╔╝██╔══██╗██║░░░░░██╔════╝</p>
+            <p>██████╔╝██║░░██║░╚████╔╝░███████║██║░░░░░█████╗░░</p>
+            <p>██╔══██╗██║░░██║░░╚██╔╝░░██╔══██║██║░░░░░██╔══╝░░</p>
+            <p>██║░░██║╚█████╔╝░░░██║░░░██║░░██║███████╗███████╗</p>
+            <p>╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚══════╝</p>
+          </header>
+          {/* <img src="royale.png" alt="Sort Royale ASCII Art Logo"></img> */}
           <nav>
             <button onClick={() => {this.setState({screen: "tutorial"})}}>Tutorial</button>
             <button onClick={() => {this.setState({screen: "singleplayer"})}}>Single Player</button>
             <button onClick={() => {this.setState({screen: "multiplayer"})}}>Multiplayer</button>
           </nav>
-        </body>
+          <footer>
+            Made by students at the University of Chapel Hill for HackNC 2022
+          </footer>
+        </div>
       )
     }
   }

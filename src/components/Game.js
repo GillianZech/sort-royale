@@ -25,6 +25,19 @@ class Game extends Component {
         return (numbers);
     }
 
+    shuffleNumbers () {
+        // This code was adapted from https://www.geeksforgeeks.org/how-to-shuffle-an-array-using-javascript/
+
+        for (var i = this.number_list.length - 1; i > 0; i--) {
+        
+            var j = Math.floor(Math.random() * (i + 1));
+                        
+            var temp = this.number_list[i];
+            this.number_list[i] = this.number_list[j];
+            this.number_list[j] = temp;
+        }
+    }
+
     toggleDuplicates = () => {
         return (
             this.state.allow_duplicates ? 
@@ -37,25 +50,44 @@ class Game extends Component {
         this.setState({number_count: event.target.value})
     }
 
+    startGame () {
+        if (this.state.number_list.length < 2) {
+            this.alert("Generate a list of numbers before starting the game!")
+        } else {
+            this.setState({
+                game_started: true,
+            })
+        }
+
+        
+    }
+
     render () {
         return (
-            <div className="Game">
-                <div className="number-list">
-                    <p>Numbers</p>
-                    <button onClick={() => this.generateRandomNumbers(this.state.number_count)}>Generate random numbers</button>
-                    {this.toggleDuplicates()}
-                </div>
+            <div>
+                {!this.state.game_started ? 
                 <div>
-                    <label htmlFor="number_count">How many numbers: </label>
-                    <input type="number" id="number_count" value={this.state.number_count} min="2" max="100" onChange={this.handleInput}></input>
-                </div>
-                <div className="numbers">
-                    {this.state.number_list.map((num, index) => {
-                        return(<li key={index}>{num}</li>)
-                    })}
-                </div>
-                {/* <button className="left-num">{this.state.left_number}</button>
-                <button className="right-num">{this.state.right_number}</button> */}
+                    <div className="Game">
+                        <div className="number-list">
+                            <button onClick={() => this.generateRandomNumbers(this.state.number_count)}>Generate random numbers</button>
+                            {this.toggleDuplicates()}
+                        </div>
+                        <div>
+                            <label htmlFor="number_count">How many numbers: </label>
+                            <input type="number" id="number_count" value={this.state.number_count} min="2" max="100" onChange={this.handleInput}></input>
+                        </div>
+                        <div className="numbers">
+                            <p>Numbers</p>
+                            {this.state.number_list.map((num, index) => {
+                                return(<li key={index}>{num}</li>)
+                            })}
+                        </div>
+                        <button onClick={this.startGame}></button>
+                    </div>
+                </div> : 
+                <div className="Game-started">
+
+                </div>}
             </div>
         )
     }
@@ -67,8 +99,8 @@ class Game extends Component {
             allow_duplicates: false,
             number_count: 10,
             number_list: [],
-            left_number: "",
-            right_number: "",
+
+            game_started: false,
         }
       };
 }

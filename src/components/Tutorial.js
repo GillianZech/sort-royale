@@ -56,6 +56,7 @@ class Tutorial extends Component {
         return (
             <div>
                 {this.state.chosen_tutorial === null ? this.noTutorialChosen() : this.chooseTutorial(this.state.chosen_tutorial)}
+                <button onClick={() => {this.setState({chosen_tutorial: null})}}>Return to tutorials</button>
             </div>
         )
     }
