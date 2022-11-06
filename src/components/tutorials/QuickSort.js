@@ -136,7 +136,7 @@ class QuickSort extends BaseTutorial {
             </ul>
             <p className = "bold">Original Array:</p>
             <ul>
-                <li>3</li>
+                <li className = "bold">3</li>
             </ul>
                 <p>We will look at the first number in the Original array which is 5 and compare it to 4. Is it less than or greater than 4?</p>
                 <button onClick={() => {this.setState({correct: true})}}>Less</button>
