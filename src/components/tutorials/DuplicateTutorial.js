@@ -183,7 +183,7 @@ class DuplicateTutorial extends BaseTutorial {
     step_nine () {
         return (
             <div>
-                <p>Now, the two arrays are split up. They'll be split up again and put back together, and we've done those steps for you. Now, we're adding the </p>
+                <p>Now, the two arrays are split up. They'll be split up again and put back together, and we've done those steps for you. Now, we're adding the arrays back together.</p>
                 <p>First array:</p>
                 <ul>
                     <li>1</li>
