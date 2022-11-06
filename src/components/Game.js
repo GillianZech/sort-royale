@@ -98,8 +98,8 @@ class Game extends Component {
                     </div>
                 : 
                 <div className="Game-started">
-                    {/*<BubbleGame numbers = {this.state.number_list}/>*/}
-                    <SelectGame numbers = {this.state.number_list}/>
+                    <BubbleGame numbers = {this.state.number_list}/>
+                    {/*<SelectGame numbers = {this.state.number_list}/>*/}
                 </div>}
             </div>
         )
