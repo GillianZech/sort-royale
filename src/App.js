@@ -28,12 +28,20 @@ class App extends Component {
     }
   }
 
-  navButtons() {
+  navButtons() {// This is either the title page or the nav menu at the bottom
+                // of almost every page to return to the title page.
     if (this.state.screen != null) {
-      return <button onClick={()=>{this.setState({screen: null})}}>Back to title screen</button>
+      return (
+        <div className='back-to-title-screen'>
+          <button onClick={()=>{this.setState({screen: null})}}>Back to title screen</button>
+          {/* Button to go to a settings page? Maybe for accessibility options. */}
+          {/* <button onClick={()=>{this.setState({screen: null})}}>Back to title screen</button> */}
+        </div>
+      )
     } else {
       return (
         <div className='title-screen'>
+        {/* <div> */}
           <div className="logo"> 
             <p>░██████╗░█████╗░██████╗░████████╗  ██████╗░░█████╗░██╗░░░██╗░█████╗░██╗░░░░░███████╗</p>
             <p>██╔════╝██╔══██╗██╔══██╗╚══██╔══╝  ██╔══██╗██╔══██╗╚██╗░██╔╝██╔══██╗██║░░░░░██╔════╝</p>
@@ -65,17 +73,18 @@ class App extends Component {
             <p>Made by students at the University of North Carolina at Chapel Hill for HackNC 2022</p>
             <p>Background image from <a href='https://www.vecteezy.com/'>Vecteezy.com</a></p>
           </footer>
-        </div>
+      {/* </div> */}
+      </div>
       )
     }
   }
 
   render () {
     return (
-      <div className="App">
-        {this.navButtons()}
+      <body className="App">
         {this.chooseScreen()}
-      </div>
+        {this.navButtons()}
+      </body>
     );
   }
 

@@ -15,7 +15,7 @@ class MergeSort extends BaseTutorial {
                     <li>5</li>
                     <li>2</li>
                 </ul>
-                <p>In the first step, check whether or not the left index l of the array is less than the right index r. In other words, are they different indexes? </p>
+                <p>In the first step, check whether or not the left index "l" of the array is less than the right index "r". In other words, are they different indexes? </p>
                 
                 <p>If so, calculate the midpoint using the formula m = (r - 1) / 2. Always round decimals down, or use integer division. Where is the midpoint?</p>
                 <button onClick={() => {this.setState({correct: true})}}>After 7</button>
@@ -66,7 +66,8 @@ class MergeSort extends BaseTutorial {
                 <p>The left and right indexes still are not the same, so we calculate the midpoint using the formula m = (r - 1) / 2. Where is the midpoint?</p>
                 <button onClick={() => {this.setState({correct: true})}}>After 5</button>
                 <button onClick={() => {this.setState({correct: false})}}>After 2</button>
-                {this.state.right_correct ? 
+                {this.state.correct===null ? "" :
+                this.state.correct ? 
                 <p>That's right! Even lists get split evenly.</p> : 
                 <p>That's not correct, recalculate the midpoint and try again.</p>
                 }
@@ -86,9 +87,9 @@ class MergeSort extends BaseTutorial {
                     <li>6</li>
                     <li>1</li>
                 </ul>
-                <p>Which element is smaller?</p>
-                <button onClick={() => {this.setState({correct: false})}}>6</button>
-                <button onClick={() => {this.setState({correct: true})}}>1</button>
+                <p>Where is the midpoint?</p>
+                <button onClick={() => {this.setState({correct: false})}}>Before 6</button>
+                <button onClick={() => {this.setState({correct: true})}}>After 6</button>
                 {this.state.correct===null ? "" :
                 this.state.correct ?
                 <p>That's right!</p> : 
@@ -157,7 +158,7 @@ class MergeSort extends BaseTutorial {
                     <li>1</li>
                     <li>6</li>
                 </ul>
-                <p>That second element, 3, is compared with the first element of the next array:</p>
+                <p>That second element, 6, is compared with the first element of the next array:</p>
                 <ul>
                     <li>7</li>
                 </ul>
@@ -241,17 +242,64 @@ class MergeSort extends BaseTutorial {
                     <li>2</li>
                     <li>5</li>
                 </ul>
-                <p>We begin the same way: which first element of each subarray is smaller?</p>
-                <button onClick={() => {this.setState({correct: true})}}>1</button>
-                <button onClick={() => {this.setState({correct: false})}}>2</button>
+                <p>We continue: which element of each subarray is smaller?</p>
+                <button onClick={() => {this.setState({correct: false})}}>6</button>
+                <button onClick={() => {this.setState({correct: true})}}>2</button>
                 {this.state.correct===null ? "" :
                 this.state.correct ?
-                <p>That's right! We use this information to place the first element 1 in the output array.</p> : 
+                <p>That's right! We use this information to place the second element 2 in the output array.</p> : 
                 <p>That's not correct, try again.</p>
                 }
                 <div>
                     <button onClick={() => {this.nextStep()}}>Next step</button>
                 </div>
+            </div>
+        )
+    }
+    step_eleven () {
+        return (
+            <div>
+                <p>We continue this process again, now reviewing the second element of the second array, since 2 has already been evaluated.</p>
+                <ul>
+                    <li>1</li>
+                    <li className="bold">6</li>
+                    <li>7</li>
+                </ul>
+                <p>The second array:</p>
+                <ul>
+                    <li>2</li>
+                    <li className="bold">5</li>
+                </ul>
+                <p>We begin the same way: which element of each subarray is smaller?</p>
+                <button onClick={() => {this.setState({correct: false})}}>6</button>
+                <button onClick={() => {this.setState({correct: true})}}>5</button>
+                {this.state.correct===null ? "" :
+                this.state.correct ?
+                <p>That's right! We use this information to place the third element 5 in the output array.</p> : 
+                <p>That's not correct, try again.</p>
+                }
+                <div>
+                    <button onClick={() => {this.nextStep()}}>Next step</button>
+                </div>
+            </div>
+        )
+    }
+    step_twelve () {
+        return (
+            <div>
+                <p>Since the second array has been completely sorted, we can now add the rest of the first array to the end of the sorted array, and the sort is complete!.</p>
+                {this.state.numbers.map((num, index) => {
+                        return(<li key={index}>{num}</li>)
+                })}
+                <p>Merge sort is great for larger arrays, because it breaks them down into more manageable chunks. However, making all of the subarrays required for merge sort takes up lots of memory, and it's a more complicated sorting algorithm to implement.</p>
+                <button onClick={() => {this.setState({
+                    left_index: 1,
+                    right_index: 2,
+                    step: 0,
+                    left_correct: null,
+                    right_correct: null,
+                    numbers: [3, 1, 6, 5, 2]
+                })}}>Restart tutorial</button>
             </div>
         )
     }
@@ -275,7 +323,7 @@ class MergeSort extends BaseTutorial {
             correct: null,
             numbers: [3, 1, 6, 5, 2]
         }
-        this.steps = [this.step_one, this.step_two, this.step_three, this.step_four, this.step_five, this.step_six, this.step_seven, this.step_eight, this.step_nine, this.step_ten, this.step_eleven];
+        this.steps = [this.step_one, this.step_two, this.step_three, this.step_four, this.step_five, this.step_six, this.step_seven, this.step_eight, this.step_nine, this.step_ten, this.step_eleven, this.step_twelve];
     }
 }
 

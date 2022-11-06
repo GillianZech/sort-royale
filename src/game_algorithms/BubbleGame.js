@@ -61,8 +61,9 @@ class BubbleGame extends Component {
     }
 
     getNextNumbers() {
+        console.log(this.state)
         this.setState({left_index: this.state.left_index + 1, right_index: this.state.right_index + 1})
-        if (this.state.right_index > this.state.numbers.length) {
+        if (this.state.right_index === this.state.numbers.length) {
             this.setState({left_index: 0, right_index: 1})
         }
         let nums = [this.state.numbers[this.state.left_index], this.state.numbers[this.state.right_index]]
@@ -80,14 +81,14 @@ class BubbleGame extends Component {
 
     check_answer(direction) {
         if (direction === "left") {
-            return (this.state.nums[0] <= this.state.nums[1]);
+            return (this.state.numbers[this.state.left_index] <= this.state.numbers[this.state.right_index]);
         } else if (direction === "right") {
-            return (this.state.nums[1] <= this.state.nums[0]);
+            return (this.state.numbers[this.state.right_index] <= this.state.numbers[this.state.left_index]);
         }
     }
 
     render() {
-        console.log(this.state)
+        // console.log(this.state)
         return (
             <div>
                 <div className="numbers">
@@ -97,8 +98,8 @@ class BubbleGame extends Component {
                 </div>
                 <div tabIndex={0} onKeyDown={this.handleKey} ref={this.myDiv}>
                     <div><p>Which number is smaller?</p></div>
-                    <p>{this.state.nums[0]}</p>
-                    <p>{this.state.nums[1]}</p>
+                    <p>{this.state.numbers[this.state.left_index]}</p>
+                    <p>{this.state.numbers[this.state.right_index]}</p>
                     {this.state.incorrect ? <p>❌</p> : null}
                 </div>
             </div>
