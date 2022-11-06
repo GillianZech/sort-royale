@@ -91,7 +91,6 @@ class Game extends Component {
                     </div>
                 </div> : 
                 <div className="Game-started">
-                    <p>Numbers</p>
                     <BubbleGame numbers = {this.state.number_list}/>
                 </div>}
             </div>

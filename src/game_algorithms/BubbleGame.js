@@ -9,10 +9,9 @@ class BubbleGame extends Component {
             numbers: numbers,
             left_index: 0,
             right_index: 1,
-            pressed_right: false,
-            pressed_left: false,
             incorrect: false,
-            nums: [numbers[0], numbers[1]],
+            allow_next: true,
+            complete: false,
         }
         this.myDiv = React.createRef();
     }
@@ -29,16 +28,20 @@ class BubbleGame extends Component {
     handleKey = (e) => {
         this.setState({incorrect: false})
         if (e.key === 'ArrowLeft' || e.key === 'a') {
-            this.setState({pressed_left: true})
-            if (this.check_answer("left")) {
-                // Left is smaller, go to next numbers
-                this.getNextNumbers();
-            } else {
-                // Player was wrong, mark incorrect
-                this.setState({incorrect: true})
+            if (this.state.allow_next) {
+                if (this.check_answer("left")) {
+                    // Left is smaller, go to next numbers
+                    this.getNextNumbers();
+                } else {
+                    // Player was wrong, mark incorrect
+                    this.setState({incorrect: true})
+                }
+                this.setState({allow_next: false})
+            } else{
+                this.setState({allow_next: true})
             }
         } else if (e.key === 'ArrowRight' || e.key === 'd') {
-            this.setState({pressed_right: true})
+            if (this.state.allow_next) {
             if (this.check_answer("right")) {
                 // Right is smaller, switch numbers and go next
                 this.moveNumber(this.state.right_index, this.state.left_index);
@@ -47,11 +50,13 @@ class BubbleGame extends Component {
                 // Player was wrong, mark incorrect
                 this.setState({incorrect: true})
             }
+            this.setState({allow_next: false})
+        } else {this.setState({allow_next: true})}
         }
     }
 
     checkIsSorted() {
-        let numbers = this.numbers;
+        let numbers = this.state.numbers;
         for (let i = 0; i < numbers.length; i++) {
             if (numbers[i+1] < numbers[i]) {
                 return false;
@@ -61,14 +66,11 @@ class BubbleGame extends Component {
     }
 
     getNextNumbers() {
-        console.log(this.state)
-        this.setState({left_index: this.state.left_index + 1, right_index: this.state.right_index + 1})
-        if (this.state.right_index === this.state.numbers.length) {
+        this.setState({complete: this.checkIsSorted()});
+        this.setState({left_index: this.state.left_index + 1, right_index: this.state.right_index + 1});
+        if (this.state.right_index === this.state.numbers.length - 1) {
             this.setState({left_index: 0, right_index: 1})
         }
-        let nums = [this.state.numbers[this.state.left_index], this.state.numbers[this.state.right_index]]
-        this.setState({nums: nums})
-        return nums
     }
     
     moveNumber(from, to) {
@@ -76,7 +78,7 @@ class BubbleGame extends Component {
         let num = numbers[from];
         numbers.splice(from, 1);
         numbers.splice(to, 0, num);
-        this.setState({numbers: numbers})
+        this.setState({numbers: numbers});
     }
 
     check_answer(direction) {
@@ -88,22 +90,30 @@ class BubbleGame extends Component {
     }
 
     render() {
-        // console.log(this.state)
-        return (
+        if (!this.state.complete) {
+            return (
+                <div>
+                    <div className="numbers">
+                        {this.state.numbers.map((num, index) => {
+                            return(<li key={index}>{num}</li>)
+                        })}
+                    </div>
+                    <div tabIndex={0} onKeyDown={this.handleKey} ref={this.myDiv}>
+                        <div><p>Which number is smaller?</p></div>
+                        <p>{this.state.numbers[this.state.left_index]}</p>
+                        <p>{this.state.numbers[this.state.right_index]}</p>
+                        {this.state.incorrect ? <p>❌</p> : null}
+                    </div>
+                </div>
+            )
+        } else {
+            return (
             <div>
-                <div className="numbers">
-                    {this.state.numbers.map((num, index) => {
-                        return(<li key={index}>{num}</li>)
-                    })}
-                </div>
-                <div tabIndex={0} onKeyDown={this.handleKey} ref={this.myDiv}>
-                    <div><p>Which number is smaller?</p></div>
-                    <p>{this.state.numbers[this.state.left_index]}</p>
-                    <p>{this.state.numbers[this.state.right_index]}</p>
-                    {this.state.incorrect ? <p>❌</p> : null}
-                </div>
+                <p>You win!</p>
             </div>
-        )
+            );
+        }
+
     }
 }
 
