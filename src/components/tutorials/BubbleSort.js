@@ -57,7 +57,7 @@ class BubbleSort extends BaseTutorial {
             return (
                 <div>
                     <div>
-                        <p>This process repeats until the first pass completes:</p>
+                        <p>This process repeats until the first pass completes. Once again, select the lower number:</p>
                         {this.state.numbers.map((num, index) => {
                             return(<li key={index}>{num}</li>)
                         })}
@@ -113,7 +113,7 @@ class BubbleSort extends BaseTutorial {
         return (
             <div>
                 <div>
-                    <p>Now we do it again for the second pass:</p>
+                    <p>Now we repeat the process for the second pass:</p>
                     {this.state.numbers.map((num, index) => {
                         return(<li key={index}>{num}</li>)
                     })}
@@ -228,7 +228,7 @@ class BubbleSort extends BaseTutorial {
                 {this.state.numbers.map((num, index) => {
                         return(<li key={index}>{num}</li>)
                 })}
-                <p>Bubble sort is a great sorting algorithm for... but it has its drawbacks...</p>
+                <p>Bubble sort is a great sorting algorithm for small lists, especially ones that are almost fully sorted already! But, it has its drawbacks. As you can imagine, in a large list, or a small list where everything is out of place, the amount of comparisons required to completely sort the list would grow exponentially.</p>
                 <button onClick={() => {this.setState({
                     left_index: 1,
                     right_index: 2,

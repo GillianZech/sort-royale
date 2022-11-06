@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+
+import BubbleGame from '../game_algorithms/BubbleGame';
+
 import "./Game.css";
 
 class Game extends Component {
@@ -25,17 +28,20 @@ class Game extends Component {
         return (numbers);
     }
 
-    shuffleNumbers () {
+    shuffleNumbers = () => {
         // This code was adapted from https://www.geeksforgeeks.org/how-to-shuffle-an-array-using-javascript/
+        let numbers = this.state.number_list
 
-        for (var i = this.number_list.length - 1; i > 0; i--) {
+        for (var i = numbers.length - 1; i > 0; i--) {
         
             var j = Math.floor(Math.random() * (i + 1));
                         
-            var temp = this.number_list[i];
-            this.number_list[i] = this.number_list[j];
-            this.number_list[j] = temp;
+            var temp = numbers[i];
+            numbers[i] = numbers[j];
+            numbers[j] = temp;
         }
+
+        return (numbers)
     }
 
     toggleDuplicates = () => {
@@ -52,14 +58,13 @@ class Game extends Component {
 
     startGame () {
         if (this.state.number_list.length < 2) {
-            this.alert("Generate a list of numbers before starting the game!")
+            alert("Generate a list of numbers before starting the game!")
         } else {
             this.setState({
                 game_started: true,
+                number_list: this.shuffleNumbers(),
             })
-        }
-
-        
+        }        
     }
 
     render () {
@@ -82,11 +87,12 @@ class Game extends Component {
                                 return(<li key={index}>{num}</li>)
                             })}
                         </div>
-                        <button onClick={this.startGame}></button>
+                        <button onClick={() => {this.startGame()}}>Start single player game</button>
                     </div>
                 </div> : 
                 <div className="Game-started">
-
+                    <p>Numbers</p>
+                    <BubbleGame numbers = {this.state.number_list}/>
                 </div>}
             </div>
         )

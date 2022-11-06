@@ -3,11 +3,36 @@ import BaseTutorial from './BaseTutorial.js';
 import "./tutorials.css"
 
 class InsertionSort extends BaseTutorial {
+    
+    getSmallerNumber(index1, index2) {
+        let num1 = this.state.numbers[index1]
+        let num2 = this.state.numbers[index2]
+        if (num1 < num2) {
+            return index1
+        } else {
+            return index2
+        }
+    }
+
+    updateOrder(left_index, right_index) {
+        if (this.getSmallerNumber(left_index, right_index) === right_index) {
+            this.moveNumber(this.state.numbers, right_index, left_index)
+        }
+    }
+
+    handleClick(event) {
+        if (this.getSmallerNumber(this.state.left_index, this.state.right_index) === this.state.left_index) {
+            this.updateOrder(this.state.left_index, this.state.right_index)
+            this.setState({left_index: this.state.left_index + 1, right_index: this.state.right_index + 1, correct: null})
+        }
+    }
+    
     step_one () {
         return (
             <div>
                 <p>Insertion Sort is a simple sorting algorithm that has a sorted array and unsorted array which compares numbers that are next to each other. They are sorted until they're in the correct spot.</p>
                 <p>Let's start with an unsorted list:</p>
+                <p>Main Array: </p>
                 <ul>
                     <li className = "bold">5</li>
                     <li className = "bold">4</li>
@@ -15,7 +40,7 @@ class InsertionSort extends BaseTutorial {
                     <li>1</li>
                     <li>2</li>
                 </ul>
-                <p>In the first pass, we compare the first two numbers in the list. Which one is lower?</p>
+                <p>First, we compare the first two numbers in the list. Which one is lower?</p>
                 <button onClick={() => {this.setState({correct: false})}}>5</button>
                 <button onClick={() => {this.setState({correct: true})}}>4</button>
                 {this.state.correct === null ? "" : 
@@ -33,29 +58,21 @@ class InsertionSort extends BaseTutorial {
             <div>
                 <div>
                     <p>This process repeats until the second to last element is compared with the final element.</p>
-                    <p>Main Array:</p>
-                    <ul>
-                        <li>4</li>
-                        <li className = "bold">3</li>
-                        <li className = "bold">5</li>
-                        <li>1</li>
-                        <li>2</li>
-                    </ul>
                     <p>Subarray:</p>
                     <ul>
                         <li>4</li>
-                        <li>5</li>
-                        <li>3</li>
+                        <li className = "bold">5</li>
+                        <li className = "bold">3</li>
                         <li>1</li>
                         <li>2</li>
                     </ul>
-                    <p>In the second pass, we will compare 3 and 5 in the main array. Is 3 or 5 lower?</p>
-                    <button onClick={() => {this.setState({correct: true})}}>3</button>
+                    <p>Next, we will compare 5 and 3 in the main array. Which one is lower?</p>
                     <button onClick={() => {this.setState({correct: false})}}>5</button>
+                    <button onClick={() => {this.setState({correct: true})}}>3</button>
                     {this.state.correct === null ? "" :
                     this.state.correct ? 
-                    <p>That's right! In the second pass, 3 is less than 5 so their positions are swapped in the subarray.</p> : 
-                    <p>That's not correct, there's a lower value in the list.</p>
+                    <p>That's right! 3 is less than 5 so their positions are swapped in the subarray.</p> : 
+                    <p>That's not correct, take a look at the numbers and try again.</p>
                     }
                 <div>
                     <button onClick={() => {this.nextStep()}}>Next step</button>
@@ -69,30 +86,21 @@ class InsertionSort extends BaseTutorial {
         return (
             <div>
                 <div>
-                    <p>Now, we will look at the subarray.</p>
-                    <p>Main Array:</p>
-                    <ul>
-                        <li>4</li>
-                        <li className = "bold">3</li>
-                        <li className = "bold">5</li>
-                        <li>1</li>
-                        <li>2</li>
-                    </ul>
                     <p>Subarray:</p>
                     <ul>
-                        <li>4</li>
+                        <li className = "bold">4</li>
+                        <li className = "bold">3</li>
                         <li>5</li>
-                        <li>3</li>
                         <li>1</li>
                         <li>2</li>
                     </ul>
-                    <p>In the second pass, we will compare 3 and 5 in the main array. Is 3 or 5 lower?</p>
+                    <p>We will compare 4 and 3 as they haven't been compared yet. Which one is lower?</p>
+                    <button onClick={() => {this.setState({correct: false})}}>4</button>
                     <button onClick={() => {this.setState({correct: true})}}>3</button>
-                    <button onClick={() => {this.setState({correct: false})}}>5</button>
                     {this.state.correct === null ? "" :
                     this.state.correct ? 
-                    <p>That's right! In the second pass, 3 is less than 5 so their positions are swapped in the subarray.</p> : 
-                    <p>That's not correct, there's a lower value in the list.</p>
+                    <p>That's right! 3 is less than 4, so it moves in front of the subarray.</p> : 
+                    <p>That's not correct, take a look at the numbers and try again.</p>
                     }
                 <div>
                     <button onClick={() => {this.nextStep()}}>Next step</button>
@@ -101,7 +109,225 @@ class InsertionSort extends BaseTutorial {
         </div>
         )
     }
-    
+
+    step_four () {
+        return (
+            <div>
+                <div>
+                    <p>Subarray:</p>
+                    <ul>
+                        <li>4</li>
+                        <li>3</li>
+                        <li className = "bold">5</li>
+                        <li className = "bold">1</li>
+                        <li>2</li>
+                    </ul>
+                    <p>Since there isn't anything else to compare 3 to, we go back to where we left off at which was 5 and then compare the next number that hasn't been compared yet. Which one is lower?</p>
+                    <button onClick={() => {this.setState({correct: false})}}>5</button>
+                    <button onClick={() => {this.setState({correct: true})}}>1</button>
+                    {this.state.correct === null ? "" :
+                    this.state.correct ? 
+                    <p>That's right! 1 is less than 5, so it moves in front of 5.</p> : 
+                    <p>That's not correct, take a look at the numbers and try again.</p>
+                    }
+                <div>
+                    <button onClick={() => {this.nextStep()}}>Next step</button>
+                </div>
+            </div>
+        </div>
+        )
+    }
+
+    step_five () {
+        return (
+            <div>
+                <div>
+                    <p>Subarray:</p>
+                    <ul>
+                        <li>4</li>
+                        <li className = "bold">3</li>
+                        <li className = "bold">1</li>
+                        <li>5</li>
+                        <li>2</li>
+                    </ul>
+                    <p>We will compare 3 and 1 as they haven't been compared yet. Which one is lower?</p>
+                    <button onClick={() => {this.setState({correct: false})}}>3</button>
+                    <button onClick={() => {this.setState({correct: true})}}>1</button>
+                    {this.state.correct === null ? "" :
+                    this.state.correct ? 
+                    <p>That's right! 1 is less than 3, so it moves in front of 3.</p> : 
+                    <p>That's not correct, take a look at the numbers and try again.</p>
+                    }
+                <div>
+                    <button onClick={() => {this.nextStep()}}>Next step</button>
+                </div>
+            </div>
+        </div>
+        )
+    }
+
+    step_six () {
+        return (
+            <div>
+                <div>
+                    <p>Subarray:</p>
+                    <ul>
+                        <li className = "bold">4</li>
+                        <li className = "bold">1</li>
+                        <li>3</li>
+                        <li>5</li>
+                        <li>2</li>
+                    </ul>
+                    <p>We will compare 4 and 1 as they haven't been compared yet. Which one is lower?</p>
+                    <button onClick={() => {this.setState({correct: false})}}>4</button>
+                    <button onClick={() => {this.setState({correct: true})}}>1</button>
+                    {this.state.correct === null ? "" :
+                    this.state.correct ? 
+                    <p>That's right! 1 is less than 4, so it moves in front of 4.</p> : 
+                    <p>That's not correct, take a look at the numbers and try again.</p>
+                    }
+                <div>
+                    <button onClick={() => {this.nextStep()}}>Next step</button>
+                </div>
+            </div>
+        </div>
+        )
+    }
+
+    step_seven () {
+        return (
+            <div>
+                <div>
+                    <p>Subarray:</p>
+                    <ul>
+                        <li>1</li>
+                        <li className = "bold"> 4</li>
+                        <li className = "bold">3</li>
+                        <li>5</li>
+                        <li>2</li>
+                    </ul>
+                    <p>We will compare 4 and 3 as they haven't been compared yet. Which one is lower?</p>
+                    <button onClick={() => {this.setState({correct: false})}}>4</button>
+                    <button onClick={() => {this.setState({correct: true})}}>3</button>
+                    {this.state.correct === null ? "" :
+                    this.state.correct ? 
+                    <p>That's right! 3 is less than 4, so it moves in front of 4.</p> : 
+                    <p>That's not correct, take a look at the numbers and try again.</p>
+                    }
+                <div>
+                    <button onClick={() => {this.nextStep()}}>Next step</button>
+                </div>
+            </div>
+        </div>
+        )
+    }
+
+    step_eight () {
+        return (
+            <div>
+                <div>
+                    <p>Subarray:</p>
+                    <ul>
+                        <li>1</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li className = "bold">5</li>
+                        <li className = "bold">2</li>
+                    </ul>
+                    <p>Since there isn't anything else to compare 4 to, we go back to where we left off at which was 5 and then compare the next number that hasn't been compared yet which is 2. Which one is lower?</p>
+                    <button onClick={() => {this.setState({correct: false})}}>3</button>
+                    <button onClick={() => {this.setState({correct: true})}}>2</button>
+                    {this.state.correct === null ? "" :
+                    this.state.correct ? 
+                    <p>That's right! 2 is less than 5, so it moves in front of 5.</p> : 
+                    <p>That's not correct, take a look at the numbers and try again.</p>
+                    }
+                <div>
+                    <button onClick={() => {this.nextStep()}}>Next step</button>
+                </div>
+            </div>
+        </div>
+        )
+    }
+
+    step_nine () {
+        return (
+            <div>
+                <div>
+                    <p>Subarray:</p>
+                    <ul>
+                        <li>1</li>
+                        <li>3</li>
+                        <li className = "bold">4</li>
+                        <li className = "bold">2</li>
+                        <li>5</li>
+                    </ul>
+                    <p>We will compare 4 and 2 as they haven't been compared yet. Which one is lower?</p>
+                    <button onClick={() => {this.setState({correct: false})}}>4</button>
+                    <button onClick={() => {this.setState({correct: true})}}>2</button>
+                    {this.state.correct === null ? "" :
+                    this.state.correct ? 
+                    <p>That's right! 2 is less than 4, so it moves in front of 4.</p> : 
+                    <p>That's not correct, take a look at the numbers and try again.</p>
+                    }
+                <div>
+                    <button onClick={() => {this.nextStep()}}>Next step</button>
+                </div>
+            </div>
+        </div>
+        )
+    }
+
+    step_ten () {
+        return (
+            <div>
+                <div>
+                    <p>Subarray:</p>
+                    <ul>
+                        <li>1</li>
+                        <li className = "bold">3</li>
+                        <li className = "bold">2</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                    <p>We will compare 3 and 2 as they haven't been compared yet. Which one is lower?</p>
+                    <button onClick={() => {this.setState({correct: false})}}>4</button>
+                    <button onClick={() => {this.setState({correct: true})}}>2</button>
+                    {this.state.correct === null ? "" :
+                    this.state.correct ? 
+                    <p>That's right! 2 is less than 3, so it moves in front of 3.</p> : 
+                    <p>That's not correct, take a look at the numbers and try again.</p>
+                    }
+                <div>
+                    <button onClick={() => {this.nextStep()}}>Next step</button>
+                </div>
+            </div>
+        </div>
+        )
+    }
+
+    step_eleven() {
+        return (
+            <div>
+                <p>The list is finally sorted!</p>
+                <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                <p>Insertion sort is a great sorting algorithm for... but it has its drawbacks...</p>
+                <button onClick={() => {this.setState({
+                    left_index: 1,
+                    right_index: 2,
+                    step: 0,
+                    correct: null,
+                    numbers: [5, 4, 3, 1, 2]
+                })}}>Restart tutorial</button>
+            </div>
+        )
+    }
 
     render () {
         console.log(this.state)
@@ -121,7 +347,7 @@ class InsertionSort extends BaseTutorial {
             correct: null,
             numbers: [5, 4, 3, 1, 2]
         }
-        this.steps = [this.step_one, this.step_two, this.step_three];
+        this.steps = [this.step_one, this.step_two, this.step_three, this.step_four, this.step_five, this.step_six, this.step_seven, this.step_eight, this.step_nine, this.step_ten, this.step_eleven];
 
     }
 }

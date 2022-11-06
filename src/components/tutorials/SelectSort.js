@@ -7,7 +7,7 @@ class SelectSort extends BaseTutorial {
         return (
             <div>
                 <div>
-                    <p>The first position of the array is stored and after traveling the whole array, select the smallest element in the array and move it to the beginning of the array by swapping it with the leading element.</p>
+                    <p>The value of the first position of the array is stored, and after searching the whole array, select the smallest element in the array and swap it to the beginning.</p>
                     <p>Let's start with an unsorted list:</p>
                     <ul>
                         <li>8</li>
@@ -16,7 +16,7 @@ class SelectSort extends BaseTutorial {
                         <li>2</li>
                         <li>5</li>
                     </ul>
-                    <p>In the first pass, we will compare 8 with every other number in order in the list. What's the lowest number smaller than 8?</p>
+                    <p>In the first pass, we will compare 8 with every other number in the list. What's the lowest number smaller than 8?</p>
                     <button onClick={() => {this.setState({correct: false})}}>8 is the lowest.</button>
                     <button onClick={() => {this.setState({correct: false})}}>10</button>
                     <button onClick={() => {this.setState({correct: false})}}>3</button>

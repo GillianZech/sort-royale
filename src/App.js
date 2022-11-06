@@ -56,14 +56,14 @@ class App extends Component {
             <p>██║░░██║╚█████╔╝░░░██║░░░██║░░██║███████╗███████╗</p>
             <p>╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚══════╝</p>
           </header>
-          {/* <img src="royale.png" alt="Sort Royale ASCII Art Logo"></img> */}
           <nav>
-            <button onClick={() => {this.setState({screen: "tutorial"})}}>Tutorial</button>
-            <button onClick={() => {this.setState({screen: "singleplayer"})}}>Single Player</button>
-            <button onClick={() => {this.setState({screen: "multiplayer"})}}>Multiplayer</button>
+            <button className="title-screen-button gradient" onClick={() => {this.setState({screen: "tutorial"})}}>Tutorial</button>
+            <button className="title-screen-button" onClick={() => {this.setState({screen: "singleplayer"})}}>Single Player</button>
+            <button className="title-screen-button" onClick={() => {this.setState({screen: "multiplayer"})}}>Multiplayer</button>
           </nav>
           <footer>
-            Made by students at the University of Chapel Hill for HackNC 2022
+            <p>Made by students at the University of North Carolina at Chapel Hill for HackNC 2022</p>
+            <p>Background image from <a href='https://www.vecteezy.com/'>Vecteezy.com</a></p>
           </footer>
         </div>
       )
