@@ -6,7 +6,7 @@ class Tips extends BaseTutorial {
     step_one () {
         return (
             <div>
-                <p className = "bold">Here are some great Tips and Tricks to keep in mind!</p>
+                <h1 className = "bold">Here are some great Tips and Tricks to keep in mind!</h1>
                 <ul>
                     <li>Consider the number of elements in your array! For example, selection sort is super effective on smaller lists, but it’ll slow you down on larger ones compared to merge sort.</li>
                     <li>How many duplicates are in the array? Think about how each sorting method handles duplicates, and whether it’ll get tripped up! If you’re not sure, go through the Advanced duplicate tutorial.</li>

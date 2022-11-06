@@ -33,7 +33,8 @@ class App extends Component {
     if (this.state.screen != null) {
       return (
         <div className='back-to-title-screen'>
-          <button className='back-to-title-screen-button' onClick={()=>{this.setState({screen: null})}}>Back to title screen</button>
+          <button className='back-to-title-screen-button' onClick={()=>{this.setState({screen: null});
+        console.log(this.state)}}>Back to title screen</button>
           {/* Button to go to a settings page? Maybe for accessibility options. */}
           {/* <button onClick={()=>{this.setState({screen: null})}}>Back to title screen</button> */}
         </div>
@@ -51,12 +52,12 @@ class App extends Component {
             <p>╚═════╝░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░  ╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚══════╝</p>
           </div>
           <header>
-            <p>░░░░░░░░░██████╗░█████╗░██████╗░████████╗░░░░░░░░</p>
-            <p>░░░░░░░░██╔════╝██╔══██╗██╔══██╗╚══██╔══╝░░░░░░░░</p>
-            <p>░░░░░░░░╚█████╗░██║░░██║██████╔╝░░░██║░░░░░░░░░░░</p>
-            <p>░░░░░░░░░╚═══██╗██║░░██║██╔══██╗░░░██║░░░░░░░░░░░</p>
-            <p>░░░░░░░░██████╔╝╚█████╔╝██║░░██║░░░██║░░░░░░░░░░░</p>
-            <p>░░░░░░░░╚═════╝░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░░░░░░░░░</p>
+            <p>    ░██████╗░█████╗░██████╗░████████╗</p>
+            <p>    ██╔════╝██╔══██╗██╔══██╗╚══██╔══╝</p>
+            <p>    ╚█████╗░██║░░██║██████╔╝░░░██║░░░</p>
+            <p>    ░╚═══██╗██║░░██║██╔══██╗░░░██║░░░</p>
+            <p>    ██████╔╝╚█████╔╝██║░░██║░░░██║░░░</p>
+            <p>    ╚═════╝░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░</p>
             <p>██████╗░░█████╗░██╗░░░██╗░█████╗░██╗░░░░░███████╗</p>
             <p>██╔══██╗██╔══██╗╚██╗░██╔╝██╔══██╗██║░░░░░██╔════╝</p>
             <p>██████╔╝██║░░██║░╚████╔╝░███████║██║░░░░░█████╗░░</p>
@@ -64,6 +65,7 @@ class App extends Component {
             <p>██║░░██║╚█████╔╝░░░██║░░░██║░░██║███████╗███████╗</p>
             <p>╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚══════╝</p>
           </header>
+          <h2 className='title-h2'>A game of quick fingers and strategic sorting algorithms</h2>
           <nav>
             <button className="title-screen-button gradient" onClick={() => {this.setState({screen: "tutorial"})}}>Tutorial</button>
             <button className="title-screen-button" onClick={() => {this.setState({screen: "singleplayer"})}}>Single Player</button>

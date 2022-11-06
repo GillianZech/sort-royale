@@ -1,10 +1,12 @@
 import React, {Component, createContext} from 'react';
 import Stopwatch from './stopwatch.js'
 
+
 class BubbleGame extends Component {
+    time = [];
     constructor (props) {
         super();
-        let numbers = props.numbers
+        let numbers = props.numbers;
 
         this.state = {
             numbers: numbers,
@@ -23,7 +25,11 @@ class BubbleGame extends Component {
     }
 
     componentWillUnmount() {
-        this.myDiv.current.removeEventListener('keydown', this.handleKey);
+        try{
+            this.myDiv.current.removeEventListener('keydown', this.handleKey);
+        } catch(err) {
+            console.log(err)
+        }
     }
 
     handleKey = (e) => {
@@ -90,12 +96,13 @@ class BubbleGame extends Component {
             return (this.state.numbers[this.state.right_index] <= this.state.numbers[this.state.left_index]);
         }
     }
-
+    
     render() {
         if (!this.state.complete) {
             return (
                 <div>
-                    <Stopwatch/>
+                    
+                    <Stopwatch glob = {this.time}/>
                     <div className="numbers">
                         {this.state.numbers.map((num, index) => {
                             return(<li key={index}>{num}</li>)
@@ -113,7 +120,7 @@ class BubbleGame extends Component {
             return (
             <div>
                 <p>You win!</p>
-                <p>Your time: <Stopwatch/></p>
+                <p>Your time: {this.time[0]}</p>
             </div>
             );
         }

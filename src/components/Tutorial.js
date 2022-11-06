@@ -14,9 +14,9 @@ class Tutorial extends Component {
     noTutorialChosen () {
         return (
             <div className='tutorial-selection-screen'>
-                <h1>Welcome to the tutorials!</h1>
-                <div className='fully-wide'></div>
-                <h2>Explore a sorting algorithm...</h2>
+                <h1 className='tutorial-selection-h1'>Tutorial</h1>
+                <div className='fully-wide'>a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a</div>
+                <h2 className='explore'>Explore a sorting algorithm...</h2>
                 <ul>
                     <li><button className='tutorial-selection-screen-button' onClick={()=>{this.setState({chosen_tutorial: "bubble sort"})}}>Level 1. Bubble Sort</button></li>
                     <li><button className='tutorial-selection-screen-button' onClick={()=>{this.setState({chosen_tutorial: "select sort"})}}>Level 2. Select Sort</button></li>
