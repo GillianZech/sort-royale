@@ -1,3 +1,5 @@
+/* TITLE SCREEN (APP.JS) AND OVERARCHING STYLING*/
+
 body {
   font-family: Gruppo, monospace;
   display: flex;
@@ -23,6 +25,7 @@ header {
   text-shadow: 0px 0px 0px black, 0 0 25px blue, 0 0 5px darkblue;
   font-size: 1.4rem;
   margin: 50px;
+  margin-bottom: 20px;
 }
 
 header p {
@@ -33,6 +36,7 @@ header p {
 
 .logo {
   margin: 80px;
+  margin-bottom: 20px;
   font-size: 1.3rem;
   color: rgb(38, 253, 246);
   text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
@@ -43,6 +47,10 @@ header p {
   padding: 0;
   border: 0;
   margin: 0;
+}
+
+.title-h2 {
+  margin-bottom: 50px;
 }
 
 nav {
@@ -110,7 +118,7 @@ a {
   color: inherit;
 }
 
-/*TUTORIAL SELECTION SCREEN*/
+/* TUTORIAL SELECTION SCREEN (TUTORIAL.JS) */
 
 .tutorial-selection-screen {
   display: flex;
@@ -122,18 +130,35 @@ a {
 
 h1 {
   position: relative;
-  top: 30px;
-  left: 0px;
-  width: 100%;
-  font-size: 3.2rem;
+  top: 0px;
+  left: 20px;
+  max-width: 90%;
+  font-size: 4.5rem;
+  align-self: flex-start;
 }
 
-/* h2 {
-  width: 75vw;
-} */
+h2 {
+  max-width: 80%;
+}
+
+.tutorial-selection-h1 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.explore {
+  margin-top: 0;
+  padding-top: 0;
+}
 
 .fully-wide {
-  width: 95vw;
+  /*This is literally just to get the width of this page to be as wide as I want*/
+  padding: 0;
+  border: 0;
+  margin: 0;
+  color: transparent;
+  max-width: 80%;
+
 }
 
 .bold {
@@ -147,11 +172,12 @@ ul {
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin: 0 auto;
+  padding: 0%;;
 }
 
 .tutorial-selection-screen-button {
   font-size: 2rem;
-  /* min-width: 400px; */
   white-space: nowrap;
   margin-bottom: 20px;
 }
@@ -169,20 +195,66 @@ ul {
   background-image: linear-gradient(rgb(38, 253, 246), rgb(17, 100, 97));
   font-weight: 500;
 
-  /* width: 100%; */
-  /* position: relative;
-  right: -110px;
-  bottom: 10px; */
 }
 
 .back-to-title-screen-button::before {
   background-image: linear-gradient(rgb(17, 100, 97), rgb(38, 253, 246));
 }
 
+/* SINGLE PLAYER (GAME.JS) */
 
+.game-container {
+  height: 100%;
+}
 
+.Game h1 {
+  /* position: absolute;
+  top: 0px;
+  left: 0px; */
+  margin-top: 0;
+}
 
+.Game {
+  min-height: 500px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
 
+.number-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 700px;
+  flex-shrink: 0.1;
+}
+
+.duplicates {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.number-list p {
+  margin-top: 0;
+  margin-bottom: 50px;
+}
+
+.numbers {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.quantity {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-bottom: 40px;
+}
 
 /* MEDIA QUERIES */
 
@@ -208,5 +280,9 @@ ul {
 
   header {
     font-size: 1rem;
+  }
+
+  .number-list {
+    
   }
 }

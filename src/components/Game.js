@@ -47,8 +47,8 @@ class Game extends Component {
     toggleDuplicates = () => {
         return (
             this.state.allow_duplicates ? 
-            <button onClick={() => this.setState({allow_duplicates: false})}>Prevent duplicates</button> :
-            <button onClick={() => this.setState({allow_duplicates: true})}>Allow duplicates</button>
+            <button onClick={() => this.setState({allow_duplicates: false})}>Prevent duplicates?</button> :
+            <button onClick={() => this.setState({allow_duplicates: true})}>Allow duplicates?</button>
         )
     }
 
@@ -69,27 +69,35 @@ class Game extends Component {
 
     render () {
         return (
-            <div>
+            <div className='game-container'>
                 {!this.state.game_started ? 
-                <div>
+                // <div>
                     <div className="Game">
+                        <h1>Single Player</h1>
+                        <h2>Generate numbers until you find a list you like! Choose how many numbers you want to sort and whether your list has the possibility of including duplicate numbers. The list will be sorted once the game starts.</h2>
                         <div className="number-list">
-                            <button onClick={() => this.generateRandomNumbers(this.state.number_count)}>Generate random numbers</button>
-                            {this.toggleDuplicates()}
+                            <div className='quantity'>
+                                <label htmlFor="number_count">How many numbers do you want to sort? </label>
+                                <input type="number" id="number_count" value={this.state.number_count} min="2" max="100" onChange={this.handleInput}></input>
+                            </div>
+
+                            <div className='duplicates'>
+                                {this.toggleDuplicates()}
+                                {this.state.allow_duplicates ? <p>Duplicates are allowed</p> : <p>Duplicates are not allowed</p>}
+                            </div>
+                            
                         </div>
-                        <div>
-                            <label htmlFor="number_count">How many numbers: </label>
-                            <input type="number" id="number_count" value={this.state.number_count} min="2" max="100" onChange={this.handleInput}></input>
-                        </div>
+                        <button onClick={() => this.generateRandomNumbers(this.state.number_count)}>Generate random numbers</button>
+                        <h2>Numbers</h2>
                         <div className="numbers">
-                            <p>Numbers</p>
                             {this.state.number_list.map((num, index) => {
                                 return(<li key={index}>{num}</li>)
                             })}
                         </div>
                         <button onClick={() => {this.startGame()}}>Start single player game</button>
                     </div>
-                </div> : 
+                // </div>
+                : 
                 <div className="Game-started">
                     <BubbleGame numbers = {this.state.number_list}/>
                 </div>}
