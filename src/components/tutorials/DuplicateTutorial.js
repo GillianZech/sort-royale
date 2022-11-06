@@ -66,6 +66,9 @@ class DuplicateTutorial extends BaseTutorial {
                     <p>That's right! The list is sorted as is, so there's no need to swap the order of the twos.</p> : 
                     <p>Not quite! Is two less than two?</p>
                     }
+                    <div>
+                        <button onClick={() => {this.nextStep()}}>Next step</button>
+                    </div>
             </div>
         )
     }
@@ -88,6 +91,9 @@ class DuplicateTutorial extends BaseTutorial {
                     <p>That's right! Two isn't less than two, so the algorithm will register the red two as the smallest value in the array since it came first.</p> : 
                     <p>Not quite! Consider how a number is determined to be the "smallest"</p>
                     }
+                    <div>
+                        <button onClick={() => {this.nextStep()}}>Next step</button>
+                    </div>
             </div>
         )
     }
@@ -111,6 +117,9 @@ class DuplicateTutorial extends BaseTutorial {
                     <p>That's right! 3 will swap with the blue 2 because it's the next variable in the array, and the blue two won't be touched again.</p> : 
                     <p>Almost! Consider the step-by-step process of evaluating a selection sort.</p>
                     }
+                    <div>
+                        <button onClick={() => {this.nextStep()}}>Next step</button>
+                    </div>
             </div>
         )
     }
@@ -133,6 +142,9 @@ class DuplicateTutorial extends BaseTutorial {
                     <p>That's right! Because insertion compares from left to right initially, the red two will be sorted first.</p> : 
                     <p>Try again, and review how insertion sort works.</p>
                     }
+                    <div>
+                        <button onClick={() => {this.nextStep()}}>Next step</button>
+                    </div>
             </div>
         )
     }
@@ -155,6 +167,9 @@ class DuplicateTutorial extends BaseTutorial {
                     <p>Correct! For the same reason as selection sort, two isn't less than two, so the blue two will end up in the third slot, or index 2, of the array.</p> : 
                     <p>Try again, and consider how indexes and comparisons might factor into this problem.</p>
                     }
+                    <div>
+                        <button onClick={() => {this.nextStep()}}>Next step</button>
+                    </div>
             </div>
         )
     }
@@ -177,6 +192,9 @@ class DuplicateTutorial extends BaseTutorial {
                     <p>You got it! The midpoint will split the array into one three-element subarray and one two-element subarray.</p> : 
                     <p>Try again, how does the number of items in an array change where the midpoint might be?</p>
                     }
+                    <div>
+                        <button onClick={() => {this.nextStep()}}>Next step</button>
+                    </div>
             </div>
         )
     }
@@ -195,21 +213,125 @@ class DuplicateTutorial extends BaseTutorial {
                     <li style={{color:"#1af0e9"}}>2</li>
                     <li>4</li>
                 </ul>
-                <p>Based on the midpoint of this array, will the twos be in the same subarray or different subarrays?</p>
-                <button onClick={() => {this.setState({correct: false})}}>Same</button>
-                <button onClick={() => {this.setState({correct: true})}}>Different</button>
+                <p>Assuming that the elements of the array are compared using a less than symbol such that if((element from the first array) &lt; (element from the second)) -&gt; add first element, which two will be placed first in the final array?</p>
+                <button onClick={() => {this.setState({correct: false})}}>Red two</button>
+                <button onClick={() => {this.setState({correct: true})}}>Blue two</button>
                 {this.state.correct === null ? "" :
                     this.state.correct ? 
-                    <p>You got it! The midpoint will split the array into one three-element subarray and one two-element subarray.</p> : 
-                    <p>Try again, how does the number of items in an array change where the midpoint might be?</p>
+                    <p>That's right! Since a normal merge sort only checks if the other array value is less than the current one, the blue two in the other array will be prioritized.</p> : 
+                    <p>Try again, consider exactly how this merge sort is implemented, and how that might affect which two is put into the final array first.</p>
                     }
+                    <div>
+                        <button onClick={() => {this.nextStep()}}>Next step</button>
+                    </div>
+            </div>
+        )
+    }
+    step_ten () {
+        return (
+            <div>
+                <p>Finally, let's use quick sort! Keep in mind that the last element of our array, blue two, will be our pivot.</p>
+                <ul>
+                    <li>1</li>
+                    <li>3</li>
+                    <li style={{color:"#ed1e25"}}>2</li>
+                    <li>4</li>
+                    <li style={{color:"#1af0e9"}}>2</li>
+                </ul>
+                <p>Since the pivot divides the arrays by elements less than it, will red two end up in the "less than" array, or the other array?</p>
+                <button onClick={() => {this.setState({correct: false})}}>Less than</button>
+                <button onClick={() => {this.setState({correct: true})}}>Other</button>
+                {this.state.correct === null ? "" :
+                    this.state.correct ? 
+                    <p>That's right! Since two isn't less than two, there's only one element, 1, in the less than array.</p> : 
+                    <p>Try again, is two less than two?</p>
+                    }
+                    <div>
+                        <button onClick={() => {this.nextStep()}}>Next step</button>
+                    </div>
+            </div>
+        )
+    }
+    step_eleven () {
+        return (
+            <div>
+                <p>We've split up our subarrays based on our original pivot, blue two. Now, we have the following:</p>
+                <p>Array 1:</p>
+                <ul>
+                    <li>1</li>
+                </ul>
+                <p>Array 2:</p>
+                <ul>
+                    <li>3</li>
+                    <li style={{color:"#ed1e25"}}>2</li>
+                    <li>4</li>
+                </ul>
+                <p>Will red two end up as a pivot for a subarray of array 2?</p>
+                <button onClick={() => {this.setState({correct: true})}}>Yes</button>
+                <button onClick={() => {this.setState({correct: false})}}>No</button>
+                {this.state.correct === null ? "" :
+                    this.state.correct ? 
+                    <p>That's right! Four will be the next pivot, and red two will be the pivot of the subarray after that.</p> : 
+                    <p>Try again, consider what will happen to the next subarray after this one.</p>
+                    }
+                    <div>
+                        <button onClick={() => {this.nextStep()}}>Next step</button>
+                    </div>
+            </div>
+        )
+    }
+    step_twelve () {
+        return (
+            <div>
+                <p>Now, we skip to the end of the quick sort.</p>
+                <ul>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                </ul>
+                <p>Which two should be first in the list given the original pivot and subarrays?</p>
+                <button onClick={() => {this.setState({correct: false})}}>Red two</button>
+                <button onClick={() => {this.setState({correct: true})}}>Blue two</button>
+                {this.state.correct === null ? "" :
+                    this.state.correct ? 
+                    <p>Exactly! Since blue two was the original pivot, and there was only one element smaller than it, blue two was assigned to the index of 1, where it will remain no matter what happens to red two.</p> : 
+                    <p>Nope! Just because red two came first doesn't mean that it'll be first in the final array.</p>
+                    }
+                    <div>
+                        <button onClick={() => {this.nextStep()}}>Next step</button>
+                    </div>
+            </div>
+        )
+    }
+    step_thirteen () {
+        return (
+            <div>
+                <p>Congratulations! You've learned how duplicates are handled with all of the sorting algorithms used in this game. Now, you can try harder versions of the game with your friends!</p>
+                <ul>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                </ul>
+                <p>Depending on the implementation of your sorting algorithms, certain algorithms handle duplicates better than others. If done correctly, merge sort and quick sort are the fastest at quickly comparing duplicates and putting them in their correct locations, while bubble, selection, and insertion sort tend to be slower.</p>
+                <button onClick={() => {this.setState({
+                    left_index: 1,
+                    right_index: 2,
+                    step: 0,
+                    correct: null,
+                    numbers: [1, 3, 2, 4, 2]
+                })}}>Restart tutorial</button>
             </div>
         )
     }
     render () {
+        console.log(this.state)
         return (
             <div>
-
+                {this.steps[this.state.step].call(this)}
             </div>
         )
     }
@@ -223,7 +345,7 @@ class DuplicateTutorial extends BaseTutorial {
             correct: null,
             numbers: [1, 3, 2, 4, 2]
         }
-        this.steps = [this.step_one, this.step_two, this.step_three, this.step_four, this.step_five];
+        this.steps = [this.step_one, this.step_two, this.step_three, this.step_four, this.step_five, this.step_six, this.step_seven, this.step_eight, this.step_nine, this.step_ten, this.step_eleven, this.step_twelve, this.step_thirteen];
     }
 }
 

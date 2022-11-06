@@ -1,10 +1,74 @@
 import React, { Component } from 'react';
+// import { MultiplayerContext } from './multiplayerContext';
 
 import BubbleGame from '../game_algorithms/BubbleGame';
+// import MultiplayerScreen from './MultiplayerScreen.js'
 
 import "./Game.css";
 
 class Game extends Component {
+    constructor() {
+        super();
+        this.state = {
+            game_started: false,
+            allow_duplicates: false,
+            number_count: 10,
+            number_list: [],
+
+            left_nums: [],
+            right_nums: [],
+        }
+        this.myDiv = React.createRef();
+    }
+
+    componentDidMount() {
+        this.myDiv.current.addEventListener('keydown', this.handleKey);
+        this.myDiv.current.focus();
+    }
+
+    componentWillUnmount() {
+        this.myDiv.current.removeEventListener('keydown', this.handleKey);
+    }
+
+    handleKey = (e) => {
+        const left_keys = ['w', 'a', 's', 'd'];
+        const right_keys = ['ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight'];
+
+        if (left_keys.some(e.key)) {
+
+        } else if (right_keys.some(e.key)) {
+
+        }
+
+        this.setState({incorrect: false})
+        if (e.key === 'ArrowLeft' || e.key === 'a') {
+            if (this.state.allow_next) {
+                if (this.check_answer("left")) {
+                    // Left is smaller, go to next numbers
+                    this.getNextNumbers();
+                } else {
+                    // Player was wrong, mark incorrect
+                    this.setState({incorrect: true})
+                }
+                this.setState({allow_next: false})
+            } else{
+                this.setState({allow_next: true})
+            }
+        } else if (e.key === 'ArrowRight' || e.key === 'd') {
+            if (this.state.allow_next) {
+            if (this.check_answer("right")) {
+                // Right is smaller, switch numbers and go next
+                this.moveNumber(this.state.right_index, this.state.left_index);
+                this.getNextNumbers();
+            } else {
+                // Player was wrong, mark incorrect
+                this.setState({incorrect: true})
+            }
+            this.setState({allow_next: false})
+        } else {this.setState({allow_next: true})}
+        }
+    }
+    
     setCurrentNumbers = (left, right) => {
         this.setState({
             left_number: left,
@@ -24,7 +88,7 @@ class Game extends Component {
             previous = num;
             i += 1;
         }
-        this.setState({number_list: numbers})
+        this.setState({number_list: numbers, left_nums: numbers, right_nums: numbers})
         return (numbers);
     }
 
@@ -69,7 +133,7 @@ class Game extends Component {
 
     render () {
         return (
-            <div>
+            <div tabIndex={0} onKeyDown={this.handleKey} ref={this.myDiv}>
                 {!this.state.game_started ? 
                 <div>
                     <div className="Game">
@@ -87,27 +151,20 @@ class Game extends Component {
                                 return(<li key={index}>{num}</li>)
                             })}
                         </div>
-                        <button onClick={() => {this.startGame()}}>Start single player game</button>
+                        <button onClick={() => {this.startGame()}}>Start multiplayer game</button>
                     </div>
                 </div> : 
                 <div className="Game-started">
-                    <BubbleGame numbers = {this.state.number_list}/>
+                        <div className="left-player">
+                            {this.state.number_list.map((num, index) => {return(<li key={index}>{num}</li>)})}
+                        </div>
+                        <div className="right-player">
+                            {this.state.number_list.map((num, index) => {return(<li key={index}>{num}</li>)})}
+                        </div>
                 </div>}
             </div>
         )
     }
-
-    constructor() {
-        super();
-    
-        this.state = {
-            allow_duplicates: false,
-            number_count: 10,
-            number_list: [],
-
-            game_started: false,
-        }
-      };
 }
 
 export default Game;

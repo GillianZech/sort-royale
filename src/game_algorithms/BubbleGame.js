@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, {Component, createContext} from 'react';
+import Stopwatch from './stopwatch.js'
 
 class BubbleGame extends Component {
     constructor (props) {
@@ -26,12 +27,12 @@ class BubbleGame extends Component {
     }
 
     handleKey = (e) => {
-        this.setState({incorrect: false})
         if (e.key === 'ArrowLeft' || e.key === 'a') {
             if (this.state.allow_next) {
                 if (this.check_answer("left")) {
                     // Left is smaller, go to next numbers
                     this.getNextNumbers();
+                    this.setState({incorrect: false})
                 } else {
                     // Player was wrong, mark incorrect
                     this.setState({incorrect: true})
@@ -46,6 +47,7 @@ class BubbleGame extends Component {
                 // Right is smaller, switch numbers and go next
                 this.moveNumber(this.state.right_index, this.state.left_index);
                 this.getNextNumbers();
+                this.setState({incorrect: false})
             } else {
                 // Player was wrong, mark incorrect
                 this.setState({incorrect: true})
@@ -93,6 +95,7 @@ class BubbleGame extends Component {
         if (!this.state.complete) {
             return (
                 <div>
+                    <Stopwatch/>
                     <div className="numbers">
                         {this.state.numbers.map((num, index) => {
                             return(<li key={index}>{num}</li>)
@@ -110,6 +113,7 @@ class BubbleGame extends Component {
             return (
             <div>
                 <p>You win!</p>
+                <p>Your time: <Stopwatch/></p>
             </div>
             );
         }

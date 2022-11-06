@@ -54,13 +54,13 @@ nav {
 }
 
 button {
+  padding: 15px;
   font-family: Gruppo, monospace;
   font-weight: bold;
   min-width: 200px;
   border-radius: 20px;
   background-image: linear-gradient(#ed1e25, #960c11);
   font-size: 2rem;
-  padding: 3%;
   margin: 2%;
   margin-top: 0;
   border: none;
@@ -74,6 +74,7 @@ button {
   width: 60%;
   min-width: 450px;
   font-size: 3rem;
+  padding: 30px;
 }
 
 button::before {
@@ -83,7 +84,6 @@ button::before {
   right: 0;
   bottom: 0;
   left: 0;
-  /* background-image: linear-gradient(#960c11, #e84b50); */
   background-image: linear-gradient(#960c11, #ed1e25);
   z-index: -1;
   transition: all 200ms ease-in-out;
@@ -117,6 +117,23 @@ a {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+h1 {
+  position: relative;
+  top: 30px;
+  left: 0px;
+  width: 100%;
+  font-size: 3.2rem;
+}
+
+/* h2 {
+  width: 75vw;
+} */
+
+.fully-wide {
+  width: 95vw;
 }
 
 .bold {
@@ -129,28 +146,38 @@ ul {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .tutorial-selection-screen-button {
   font-size: 2rem;
-  min-width: 400px;
-
+  /* min-width: 400px; */
+  white-space: nowrap;
+  margin-bottom: 20px;
 }
 
 .back-to-title-screen {
   margin-top: 50px;
   margin-bottom: 0px;
-  /* width: 100%; */
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .back-to-title-screen-button {
-  /* background-image: linear-gradient(#5a4243, #281718); */
-  background-color: gray !important;
-  /* color: white; */
-  text-decoration: none;
+  background-image: linear-gradient(rgb(38, 253, 246), rgb(17, 100, 97));
+  font-weight: 500;
+
+  /* width: 100%; */
+  /* position: relative;
+  right: -110px;
+  bottom: 10px; */
 }
 
-
+.back-to-title-screen-button::before {
+  background-image: linear-gradient(rgb(17, 100, 97), rgb(38, 253, 246));
+}
 
 
 
