@@ -30,10 +30,11 @@ class InsertionSort extends BaseTutorial {
     step_one () {
         return (
             <div>
+                <h2>Insertion Sort:</h2>
                 <p>Insertion Sort is a simple sorting algorithm that takes an unsorted array and makes a sorted subarray which compares numbers that are next to each other. Numbers in the unsorted array are sorted until they're in the correct spot, and then they're locked into the sorted subarray.</p>
                 <p>Let's start with an unsorted list:</p>
                 <p>Main Array:</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>5</li>
                     <li>4</li>
                     <li>3</li>
@@ -59,7 +60,7 @@ class InsertionSort extends BaseTutorial {
                 <div>
                     <p>This process repeats until the second to last element is compared with the final element.</p>
                     <p>Subarray (bold):</p>
-                    <ul>
+                    <ul className='tutorial-ul'>
                         <li  className = "bold">4</li>
                         <li>5</li>
                         <li>3</li>
@@ -87,7 +88,7 @@ class InsertionSort extends BaseTutorial {
             <div>
                 <div>
                     <p>Subarray (bold):</p>
-                    <ul>
+                    <ul className='tutorial-ul'>
                         <li className = "bold">4</li>
                         <li className = "bold">3</li>
                         <li>5</li>
@@ -115,7 +116,7 @@ class InsertionSort extends BaseTutorial {
             <div>
                 <div>
                     <p>Subarray (bold):</p>
-                    <ul>
+                    <ul className='tutorial-ul'>
                         <li className = "bold">3</li>
                         <li className = "bold">4</li>
                         <li>5</li>
@@ -143,7 +144,7 @@ class InsertionSort extends BaseTutorial {
             <div>
                 <div>
                     <p>Subarray (bold):</p>
-                    <ul>
+                    <ul className='tutorial-ul'>
                         <li className = "bold">3</li>
                         <li className = "bold">4</li>
                         <li className = "bold">1</li>
@@ -171,7 +172,7 @@ class InsertionSort extends BaseTutorial {
             <div>
                 <div>
                     <p>Subarray (bold):</p>
-                    <ul>
+                    <ul className='tutorial-ul'>
                         <li className = "bold">3</li>
                         <li className = "bold">1</li>
                         <li>4</li>
@@ -198,7 +199,7 @@ class InsertionSort extends BaseTutorial {
             <div>
                 <div>
                     <p>Subarray (bold):</p>
-                    <ul>
+                    <ul className='tutorial-ul'>
                         <li className = "bold">1</li>
                         <li className = "bold">3</li>
                         <li className = "bold">4</li>
@@ -226,7 +227,7 @@ class InsertionSort extends BaseTutorial {
             <div>
                 <div>
                     <p>Subarray (bold):</p>
-                    <ul>
+                    <ul className='tutorial-ul'>
                         <li className = "bold">1</li>
                         <li className = "bold">3</li>
                         <li className = "bold">4</li>
@@ -254,7 +255,7 @@ class InsertionSort extends BaseTutorial {
             <div>
                 <div>
                     <p>Subarray:</p>
-                    <ul>
+                    <ul className='tutorial-ul'>
                         <li className = "bold">1</li>
                         <li className = "bold">3</li>
                         <li className = "bold">2</li>
@@ -281,7 +282,7 @@ class InsertionSort extends BaseTutorial {
         return (
             <div>
                 <p>The list is finally sorted!</p>
-                <ul>
+                <ul className='tutorial-ul'>
                         <li>1</li>
                         <li>2</li>
                         <li>3</li>

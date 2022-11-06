@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 // import { MultiplayerContext } from './multiplayerContext';
 
-import BubbleGame from '../game_algorithms/BubbleGame';
 import BubbleMulti from './multiplayer_algos/BubbleMulti';
 import SelectMulti from './multiplayer_algos/SelectMulti';
-// import MultiplayerScreen from './MultiplayerScreen.js'
 
 import "./Game.css";
 
@@ -20,8 +18,12 @@ class Game extends Component {
 
             left_nums: [],
             right_nums: [],
+            left_choice: 'bubble',
+            right_choice: 'bubble',
             left_algo: null,
             right_algo: null,
+            left_mistakes: 0,
+            right_mistakes: 0,
 
             winner: null
         }
@@ -38,6 +40,10 @@ class Game extends Component {
     }
 
     handleKey = (e) => {
+        if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+            e.preventDefault();
+        }
+
         if (!this.state.allow_next) {
             this.setState({allow_next: true})
             return
@@ -75,14 +81,26 @@ class Game extends Component {
             if (correct) {
                 algo.incNums()
                 this.setState({left_nums: this.state.left_algo.numbers, right_nums: this.state.right_algo.numbers})
-            } 
+            } else {
+                if (key === 'a') {
+                    this.setState({left_mistakes: this.state.left_mistakes + 1})
+                } else {
+                    this.setState({right_mistakes: this.state.right_mistakes + 1})
+                }
+            }
         } else if (['d', 'ArrowRight'].includes(key)) {
             let correct = algo.checkCorrect(key)
             if (correct) {
                 algo.moveNumber(algo.right, algo.left)
                 algo.incNums()
                 this.setState({left_nums: this.state.left_algo.numbers, right_nums: this.state.right_algo.numbers})
-            } 
+            } else {
+                if (key === 'd') {
+                    this.setState({left_mistakes: this.state.left_mistakes + 1})
+                } else {
+                    this.setState({right_mistakes: this.state.right_mistakes + 1})
+                }
+            }
         }
     }
 
@@ -93,11 +111,23 @@ class Game extends Component {
                 algo.swapNumbers(algo.left, algo.right)
                 algo.incLeft()
                 algo.right = algo.left
+            } else {
+                if (key === 'w') {
+                    this.setState({left_mistakes: this.state.left_mistakes + 1})
+                } else {
+                    this.setState({right_mistakes: this.state.right_mistakes + 1})
+                }
             }
         } else if (['s', 'ArrowDown'].includes(key)) {
             let correct = algo.checkCorrect(key)
             if (correct) {
                 algo.incRight()
+            } else {
+                if (key === 's') {
+                    this.setState({left_mistakes: this.state.left_mistakes + 1})
+                } else {
+                    this.setState({right_mistakes: this.state.right_mistakes + 1})
+                }
             }
         }
     }
@@ -158,23 +188,56 @@ class Game extends Component {
         if (this.state.number_list.length < 2) {
             alert("Generate a list of numbers before starting the game!")
         } else {
+            let left_algo = null
+            let right_algo = null
+            if (this.state.left_choice === "select") {
+                left_algo = new SelectMulti(numbers.map((x) => x))
+            } else {
+                left_algo = new BubbleMulti(numbers.map((x) => x))
+            }
+            if (this.state.right_choice === "select") {
+                right_algo = new SelectMulti(numbers.map((x) => x))
+            } else {
+                right_algo = new BubbleMulti(numbers.map((x) => x))
+            }
             this.setState({
                 game_started: true,
                 number_list: numbers,
-                left_algo: new BubbleMulti(numbers.map((x) => x)),
-                right_algo: new BubbleMulti(numbers.map((x) => x)),
+                left_algo: left_algo,
+                right_algo: right_algo,
             })
         }        
     }
 
+    getDisplay(algo) {
+        if (algo instanceof BubbleMulti) {
+            return (
+                <div className='active-game'>
+                    <h2>Which number is smaller?</h2>
+                    <div className='comparison'>
+                        <p>{algo.getNums()[0]}</p>
+                        <p>{algo.getNums()[1]}</p>
+                    </div>
+                </div>
+            )
+        } else if (algo instanceof SelectMulti) {
+            return (
+                <div>
+                    <h2>Is this the smallest number after/including {algo.getNums()[0]}</h2>
+                    <p>{algo.getNums()[1]}</p>
+                </div>
+            )
+        }
+    }
+
     render () {
         return (
-            <div tabIndex={0} onKeyDown={this.handleKey} ref={this.myDiv}>
+            <div className='contain' tabIndex={0} onKeyDown={this.handleKey} ref={this.myDiv}>
                 {!this.state.game_started ? 
                 <div>
                     <div className="Game">
                         <h1>Multiplayer</h1>
-                        <h2>Generate numbers until you find a list you like! Choose how many numbers you want to sort and whether your list has the possibility of including duplicate numbers. </h2>
+                        <h2>Generate numbers until you find a list you like! Choose how many numbers you want to sort and whether your list has the possibility of including duplicate numbers. The list will be shuffled once the game starts. Both players will have the same list shuffled in the same way.</h2>
                         
                         <div className="number-list">
                             <button onClick={() => this.generateRandomNumbers(this.state.number_count)}>Generate random numbers</button>
@@ -185,15 +248,15 @@ class Game extends Component {
                             <input type="number" id="number_count" value={this.state.number_count} min="2" max="100" onChange={this.handleInput}></input>
                         </div>
                         <div>
-                            <label for="algorithms">Choose a sorting algorithm for the left player:</label>
-                            <select name="algorithms" id="algorithms" onChange={e => this.setState({left_algo: e.target})}>
+                            <label htmlFor="algorithms">Choose a sorting algorithm for the left player:</label>
+                            <select name="algorithms" id="algorithms" onChange={e => this.setState({left_choice: e.target.value})}>
                             <option value="bubble">Bubble Sort</option>
                             <option value="select">Select Sort</option>
                             </select>
                         </div>
                         <div>
-                            <label for="algorithms">Choose a sorting algorithm for the right player:</label>
-                            <select name="algorithms" id="algorithms">
+                            <label htmlFor="algorithms">Choose a sorting algorithm for the right player:</label>
+                            <select name="algorithms" id="algorithms" onChange={e => this.setState({right_choice: e.target.value})}>
                             <option value="bubble">Bubble Sort</option>
                             <option value="select">Select Sort</option>
                             </select>
@@ -209,22 +272,29 @@ class Game extends Component {
                 </div> : 
                 <div className="Game-started">
                     {this.state.winner === null ? 
-                        <div>
-                            <div className="left-player">
-                                {this.state.left_algo.numbers.map((num, index) => {return(<li key={index}>{num}</li>)})}
-                                <p>Which is smaller?</p>
-                                <p>{this.state.left_algo.getNums()[0]}</p>
-                                <p>{this.state.left_algo.getNums()[1]}</p>
-                            </div>
-                            <div className="right-player">
-                                {this.state.right_algo.numbers.map((num, index) => {return(<li key={index}>{num}</li>)})}
-                                <p>Which is smaller?</p>
-                                <p>{this.state.right_algo.getNums()[0]}</p>
-                                <p>{this.state.right_algo.getNums()[1]}</p>
+                        <div className='multiplayer-gameplay-screen'>
+                            <h1>Multiplayer</h1>
+                            {/* <div className='fully-wide'>a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a</div> */}
+
+                            <div className='player-sides'>
+                                <div className="left-player">
+                                    <div className="array">
+                                        {this.state.left_algo.numbers.map((num, index) => {return(<li key={index}>{num}</li>)})}
+                                    </div>
+                                    {this.getDisplay(this.state.left_algo)}
+                                </div>
+                                <div className="right-player">
+                                    <div className="array">
+                                        {this.state.right_algo.numbers.map((num, index) => {return(<li key={index}>{num}</li>)})}
+                                    </div>
+                                    {this.getDisplay(this.state.right_algo)}
+                                </div>
                             </div>
                         </div> : 
                         <div>
                             <p>Winner: {this.state.winner} player!</p>
+                            <p>Left player's mistakes: {this.state.left_mistakes}</p>
+                            <p>Right player's mistakes: {this.state.right_mistakes}</p>
                         </div>
                         }
                 </div>}

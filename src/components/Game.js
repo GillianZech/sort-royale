@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import BubbleGame from '../game_algorithms/BubbleGame';
+import SelectGame from '../game_algorithms/SelectGame';
 
 import "./Game.css";
 
@@ -71,10 +72,9 @@ class Game extends Component {
         return (
             <div className='game-container'>
                 {!this.state.game_started ? 
-                // <div>
                     <div className="Game">
                         <h1>Single Player</h1>
-                        <h2>Generate numbers until you find a list you like! Choose how many numbers you want to sort and whether your list has the possibility of including duplicate numbers. The list will be sorted once the game starts.</h2>
+                        <h2>Generate numbers until you find a list you like! Choose how many numbers you want to sort and whether your list has the possibility of including duplicate numbers. The list will be shuffled once the game starts.</h2>
                         <div className="number-list">
                             <div className='quantity'>
                                 <label htmlFor="number_count">How many numbers do you want to sort? </label>
@@ -87,19 +87,19 @@ class Game extends Component {
                             </div>
                             
                         </div>
-                        <button onClick={() => this.generateRandomNumbers(this.state.number_count)}>Generate random numbers</button>
+                        <button className='generate' onClick={() => this.generateRandomNumbers(this.state.number_count)}>Generate random numbers</button>
                         <h2>Numbers</h2>
                         <div className="numbers">
                             {this.state.number_list.map((num, index) => {
                                 return(<li key={index}>{num}</li>)
                             })}
                         </div>
-                        <button onClick={() => {this.startGame()}}>Start single player game</button>
+                        <button className='start' onClick={() => {this.startGame()}}>Start single player game</button>
                     </div>
-                // </div>
                 : 
                 <div className="Game-started">
-                    <BubbleGame numbers = {this.state.number_list}/>
+                    {/*<BubbleGame numbers = {this.state.number_list}/>*/}
+                    <SelectGame numbers = {this.state.number_list}/>
                 </div>}
             </div>
         )

@@ -2,13 +2,16 @@ import React, {Component, createContext} from 'react';
 import Stopwatch from './stopwatch.js'
 
 
+
 class SelectGame extends Component {
     constructor (props) {
         super();
         let numbers = props.numbers;
+        let answer = Math.min(...numbers);
 
         this.state = {
             numbers: numbers,
+            answer: answer,
             left_index: 0,
             right_index: 1,
             incorrect: false,
@@ -28,44 +31,61 @@ class SelectGame extends Component {
     }
 
     moveLeft() {
-        if (this.state.right_index >> this.state.left_index) {
-            this.state.left_
+        if (this.state.right_index > this.state.left_index) {
+            this.setState({right_index: this.state.right_index - 1})
+        }
+    }
+
+    moveRight() {
+        if (this.state.right_index < (this.state.numbers.length - 1)) {
+            this.setState({right_index: this.state.right_index + 1})
+        }
+    }
+
+    select() {
+        this.setState({incorrect: false})
+        if(this.state.answer == this.state.numbers[this.state.right_index]) {
+            this.moveNumber(this.state.right_index, this.state.left_index)
+            this.setState({left_index: this.state.left_index + 1, right_index: this.state.left_index + 1, answer: Math.min(...this.state.numbers.slice(this.state.left_index + 1))})
+        } else {
+            this.setState({incorrect: true})
+            console.log(this)
         }
     }
     
+    
     handleKey = (e) => {
-        if (e.key === 'ArrowLeft' || e.key === 'a') {
-            if (this.state.allow_next) {
-                if (this.state.right_index >> this.state.left_index) {
-                    // Left is smaller, go to next numbers
-                    this.moveLeft();
-                } else {
-                    // Player was wrong, mark incorrect
-                    this.setState({incorrect: true})
-                }
+        if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+            e.preventDefault();
+        }
+        if (this.state.allow_next) {
+            switch (e.key) {
+            case "a":
+            case "ArrowLeft":
+                this.moveLeft();
                 this.setState({allow_next: false})
-            } else{
-                this.setState({allow_next: true})
+                break;
+            case "d":
+            case "ArrowRight":
+                this.moveRight();
+                this.setState({allow_next: false})
+                break;
+            case "w":
+            case "ArrowUp":
+                this.select();
+                this.setState({allow_next: false})
+                break;
+            default:
+                break;
             }
-        } else if (e.key === 'ArrowRight' || e.key === 'd') {
-            if (this.state.allow_next) {
-            if (this.check_answer("right")) {
-                // Right is smaller, switch numbers and go next
-                this.moveNumber(this.state.right_index, this.state.left_index);
-                this.getNextNumbers();
-                this.setState({incorrect: false})
-            } else {
-                // Player was wrong, mark incorrect
-                this.setState({incorrect: true})
-            }
-            this.setState({allow_next: false})
-        } else {this.setState({allow_next: true})}
+        } else {
+            this.setState({allow_next: true})
         }
     }
 
     checkIsSorted() {
         let numbers = this.state.numbers;
-        for (let i = 0; i < numbers.length; i++) {
+        for (let i = 0; i < numbers.length - 1; i++) {
             if (numbers[i+1] < numbers[i]) {
                 return false;
             }
@@ -75,13 +95,14 @@ class SelectGame extends Component {
 
     getNextNumbers() {
         this.setState({complete: this.checkIsSorted()});
-        this.setState({left_index: this.state.left_index + 1, right_index: this.state.right_index + 1});
-        if (this.state.right_index === this.state.numbers.length - 1) {
-            this.setState({left_index: 0, right_index: 1})
-        }
+        this.setState({left_index: this.state.left_index + 1, right_index: this.state.left_index + 1});
+        this.setState({answer: Math.min(...this.state.numbers.slice(this.state.left_index))})
     }
     
     moveNumber(from, to) {
+        if (from===to) {
+            return null;
+        }
         let numbers = [...this.state.numbers]
         let num = numbers[from];
         numbers.splice(from, 1);
@@ -101,18 +122,22 @@ class SelectGame extends Component {
         if (!this.state.complete) {
             return (
                 <div>
-                    
-                    <Stopwatch glob = {this.time}/>
-                    <div className="numbers">
+                    <h1>Single Player</h1>
+                    <div className="numbers array">
                         {this.state.numbers.map((num, index) => {
                             return(<li key={index}>{num}</li>)
                         })}
                     </div>
-                    <div tabIndex={0} onKeyDown={this.handleKey} ref={this.myDiv}>
-                        <div><p>Which number is smaller?</p></div>
-                        <p>{this.state.numbers[this.state.left_index]}</p>
-                        <p>{this.state.numbers[this.state.right_index]}</p>
+                    <div className='active-game' tabIndex={0} onKeyDown={this.handleKey} ref={this.myDiv}>
+                        <h2>Which is the smallest number?</h2>
+                        <div className='comparison'>
+                            <p>{this.state.numbers[this.state.left_index]}</p>
+                            <p>{this.state.numbers[this.state.right_index]}</p>
+                        </div>
                         {this.state.incorrect ? <p>❌</p> : null}
+                    </div>
+                    <div className='timer'>
+                        <Stopwatch glob = {this.time}/>
                     </div>
                 </div>
             )

@@ -11,6 +11,29 @@ body {
   min-height: 100vh;
 }
 
+.width-80 {
+  width: 80%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.column {
+  flex-flow: column nowrap;
+}
+
+.tutorial-ul {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.tutorial-ul li {
+  margin: 20px;
+  font-size: 3rem;
+}
+
 .title-screen {
   display: flex;
   justify-content: center;
@@ -238,16 +261,29 @@ ul {
   align-items: center;
 }
 
+.generate {
+  margin-bottom: 0;
+}
+
 .number-list p {
   margin-top: 0;
   margin-bottom: 50px;
 }
 
-.numbers {
+.array {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
   align-items: center;
+  border: solid 3px white;
+  border-radius: 50px;
+  list-style-type: none;
+}
+
+.array li {
+  font-size: 3rem;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .quantity {
@@ -255,6 +291,54 @@ ul {
   flex-flow: column nowrap;
   margin-bottom: 40px;
 }
+
+.start {
+  margin-top: 50px;
+}
+
+/* SOLO BUBBLESORT */
+
+.timer {
+  font-size: 2rem;
+  margin-top: 20px;
+}
+
+.active-game {
+  border: none;
+  border-style: none;
+}
+
+.comparison {
+  font-size: 10rem;
+  font-weight: bolder;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+
+.comparison p {
+  margin: 20px;
+}
+
+/* MULTIPLAYER.JS */
+
+.player-sides {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.contain {
+  width: 100%;
+}
+
+.Game-started {
+  width: 100%;
+}
+
+
 
 /* MEDIA QUERIES */
 
@@ -282,7 +366,24 @@ ul {
     font-size: 1rem;
   }
 
+  .Game h1 {
+    /* font-size: 2rem; */
+    width: 70%;
+    /* text-align: center; */
+    align-self: center;
+  }
+
+  .Game h2 {
+    font-size: 1rem;
+    width: 70%;
+  }
+
   .number-list {
-    
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 700px;
+    flex-shrink: 0.1;
   }
 }

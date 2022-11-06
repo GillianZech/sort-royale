@@ -226,6 +226,7 @@ class QuickSort extends BaseTutorial {
     step_seven () {
         return (
         <div>
+        <h2>Quick Sort:</h2>
             <p>Let's continue to look at the Less array.</p>
             <p>Less:</p>
             <ul>

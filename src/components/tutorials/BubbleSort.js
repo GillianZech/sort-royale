@@ -29,11 +29,13 @@ class BubbleSort extends BaseTutorial {
         return (
             <div>
                 <div>
-                    <p>Bubble sort is the simplest sorting algorithm as it compares two adjacent elements, and then changes position if one is greater than the other. This process repeats until the array is fully sorted.</p>
+                    <h2>Bubble Sort:</h2>
                     <p>Let's start with an unsorted list:</p>
-                    {this.state.numbers.map((num, index) => {
-                        return(<li key={index}>{num}</li>)
-                    })}
+                    <div className="array">
+                        {this.state.numbers.map((num, index) => {
+                            return(<li key={index}>{num}</li>)
+                        })}
+                    </div>
                     <p>In the first pass, we're comparing the first two numbers in the list. Which one is lower?</p>
                     <button onClick={() => {this.setState({correct: true})}}>3</button>
                     <button onClick={() => {this.setState({correct: false})}}>6</button>
@@ -58,9 +60,11 @@ class BubbleSort extends BaseTutorial {
                 <div>
                     <div>
                         <p>This process repeats until the first pass completes. Once again, select the lower number:</p>
-                        {this.state.numbers.map((num, index) => {
-                            return(<li key={index}>{num}</li>)
-                        })}
+                        <div className="array">
+                            {this.state.numbers.map((num, index) => {
+                                return(<li key={index}>{num}</li>)
+                            })}
+                        </div>
                         {
                             this.state.right_index < 5 ? 
                             <div>
@@ -114,9 +118,11 @@ class BubbleSort extends BaseTutorial {
             <div>
                 <div>
                     <p>Now we repeat the process for the second pass:</p>
-                    {this.state.numbers.map((num, index) => {
-                        return(<li key={index}>{num}</li>)
-                    })}
+                    <div className="array">
+                        {this.state.numbers.map((num, index) => {
+                            return(<li key={index}>{num}</li>)
+                        })}
+                    </div>
                     {
                         this.state.right_index < 5 ? 
                         <div>
@@ -170,9 +176,11 @@ class BubbleSort extends BaseTutorial {
             <div>
                 <div>
                     <p>And again for the third pass:</p>
-                    {this.state.numbers.map((num, index) => {
-                        return(<li key={index}>{num}</li>)
-                    })}
+                    <div className="array">
+                        {this.state.numbers.map((num, index) => {
+                            return(<li key={index}>{num}</li>)
+                        })}
+                    </div>
                     {
                         this.state.right_index < 5 ? 
                         <div>
@@ -223,11 +231,13 @@ class BubbleSort extends BaseTutorial {
 
     step_five() {
         return (
-            <div>
+            <div className='width-80 center column'>
                 <p>The list is finally sorted!</p>
-                {this.state.numbers.map((num, index) => {
+                <div className="array">
+                    {this.state.numbers.map((num, index) => {
                         return(<li key={index}>{num}</li>)
-                })}
+                    })}
+                </div>
                 <p>Bubble sort is a great sorting algorithm for small lists, especially ones that are almost fully sorted already! But, it has its drawbacks. As you can imagine, in a large list, or a small list where everything is out of place, the amount of comparisons required to completely sort the list would grow exponentially.</p>
                 <button onClick={() => {this.setState({
                     left_index: 1,

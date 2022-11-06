@@ -6,9 +6,10 @@ class MergeSort extends BaseTutorial {
     step_one () {
         return (
             <div>
+                <h2>Merge Sort:</h2>
                 <p>Merge sort is a recursive algorithm that breaks a list down into progressively smaller chunks until it can make single comparisons between elements.</p>
                 <p>Let's start with an unsorted list:</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>6</li>
                     <li>1</li>
                     <li>7</li>
@@ -36,7 +37,7 @@ class MergeSort extends BaseTutorial {
             <div>
                 <p>In the next step, we look at the split arrays separately, using the same process we did for the first list.</p>
                 <p>Let's start with the left list:</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>6</li>
                     <li>1</li>
                     <li>7</li>
@@ -59,7 +60,7 @@ class MergeSort extends BaseTutorial {
         return (
             <div>
                 <p>Next, let's look at the right list:</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>5</li>
                     <li>2</li>
                 </ul>
@@ -83,7 +84,7 @@ class MergeSort extends BaseTutorial {
         <div>
                 <p>The leftmost array is the last with more than one element.</p>
 
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>6</li>
                     <li>1</li>
                 </ul>
@@ -106,7 +107,7 @@ class MergeSort extends BaseTutorial {
         return (
             <div>
                 <p>The merging process compares the same arrays in each step, but in reverse order. We merge these subarrays now, instead of splitting them.</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>6</li>
                     <li>1</li>
                 </ul>
@@ -128,12 +129,12 @@ class MergeSort extends BaseTutorial {
         return (
             <div>
                 <p>Now we will address merging arrays with multiple elements.</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>1</li>
                     <li>6</li>
                 </ul>
                 <p>We combine this with the following subarray:</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>7</li>
                 </ul>
                 <p>These subarrays are sorted. Using this, we can compare the arrays and decide: which first element of each subarray is smaller?</p>
@@ -154,12 +155,12 @@ class MergeSort extends BaseTutorial {
         return (
             <div>
                 <p>To finish the previous merge operation, we move on to the next element in the array we took the element from.</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>1</li>
                     <li>6</li>
                 </ul>
                 <p>That second element, 6, is compared with the first element of the next array:</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>7</li>
                 </ul>
                 <p>Which element is smaller?</p>
@@ -179,11 +180,11 @@ class MergeSort extends BaseTutorial {
     step_eight () {
         return (
             <div>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>5</li>
                 </ul>
                 <p>This array will now be combined with the following array:</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>2</li>
                 </ul>
                 <p>We are back to atomic arrays. Which first element of each subarray is smaller?</p>
@@ -204,13 +205,13 @@ class MergeSort extends BaseTutorial {
         return (
             <div>
                 <p>The final challenge of this tutorial is merging the following (relatively) large arrays, respectively.</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>1</li>
                     <li>6</li>
                     <li>7</li>
                 </ul>
                 <p>The second array:</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>2</li>
                     <li>5</li>
                 </ul>
@@ -232,13 +233,13 @@ class MergeSort extends BaseTutorial {
         return (
             <div>
                 <p>We look at the next element from the array we just took from.</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>1</li>
                     <li className="bold">6</li>
                     <li>7</li>
                 </ul>
                 <p>The second array:</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>2</li>
                     <li>5</li>
                 </ul>
@@ -260,13 +261,13 @@ class MergeSort extends BaseTutorial {
         return (
             <div>
                 <p>We continue this process again, now reviewing the second element of the second array, since 2 has already been evaluated.</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>1</li>
                     <li className="bold">6</li>
                     <li>7</li>
                 </ul>
                 <p>The second array:</p>
-                <ul>
+                <ul className='tutorial-ul'>
                     <li>2</li>
                     <li className="bold">5</li>
                 </ul>
@@ -288,9 +289,8 @@ class MergeSort extends BaseTutorial {
         return (
             <div>
                 <p>Since the second array has been completely sorted, we can now add the rest of the first array to the end of the sorted array, and the sort is complete!.</p>
-                {this.state.numbers.map((num, index) => {
-                        return(<li key={index}>{num}</li>)
-                })}
+                {this.setState({numbers: [1, 2, 3, 5, 6]})}
+                {this.state.numbers.map((num, index) => {return(<li key={index}>{num}</li>)})}
                 <p>Merge sort is great for larger arrays, because it breaks them down into more manageable chunks. However, making all of the subarrays required for merge sort takes up lots of memory, and it's a more complicated sorting algorithm to implement.</p>
                 <button onClick={() => {this.setState({
                     left_index: 1,

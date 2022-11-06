@@ -283,6 +283,7 @@ class DuplicateTutorial extends BaseTutorial {
     step_twelve () {
         return (
             <div>
+                <h2>Advanced - Duplicate Sorting</h2>
                 <p>Now, we skip to the end of the quick sort.</p>
                 <ul>
                     <li>1</li>

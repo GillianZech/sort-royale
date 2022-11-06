@@ -7,6 +7,7 @@ class SelectSort extends BaseTutorial {
         return (
             <div>
                 <div>
+                    <h2>Select Sort:</h2>
                     <p>The value of the first position of the array is stored, and after searching the whole array, select the smallest element in the array and swap it to the beginning.</p>
                     <p>Let's start with an unsorted list:</p>
                     <ul>

@@ -7,6 +7,7 @@ import SelectSort from './tutorials/SelectSort';
 import DuplicateTutorial from './tutorials/DuplicateTutorial';
 import HowToPlay from './tutorials/HowToPlay';
 import Tips from './tutorials/Tips';
+import MultiplayerControls from './tutorials/MultiplayerControls';
 import "./tutorials/tutorials.css";
 
 
@@ -28,6 +29,7 @@ class Tutorial extends Component {
                 <ul>
                     <li><button className='tutorial-selection-screen-button' onClick={()=>{this.setState({chosen_tutorial: "howtoplay"})}}>How to Play</button></li>
                     <li><button className='tutorial-selection-screen-button' onClick={()=>{this.setState({chosen_tutorial: "tips"})}}>Tips and Tricks</button></li>
+                    <li><button className='tutorial-selection-screen-button' onClick={()=>{this.setState({chosen_tutorial: "multiplayer"})}}>Multiplayer Controls</button></li>
                     <li><button className='tutorial-selection-screen-button' onClick={()=>{this.setState({chosen_tutorial: "duplicate"})}}>Advanced - Duplicate Sorting</button></li>
                 </ul>
             </div>
@@ -52,6 +54,8 @@ class Tutorial extends Component {
                 return (<Tips />)
             case "duplicate":
                 return (<DuplicateTutorial />)
+            case "multiplayer":
+                return (<MultiplayerControls />)
             default:
                 return null
         }

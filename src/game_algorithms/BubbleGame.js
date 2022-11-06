@@ -1,7 +1,6 @@
 import React, {Component, createContext} from 'react';
 import Stopwatch from './stopwatch.js'
 
-
 class BubbleGame extends Component {
     time = [];
     constructor (props) {
@@ -101,18 +100,22 @@ class BubbleGame extends Component {
         if (!this.state.complete) {
             return (
                 <div>
-                    
-                    <Stopwatch glob = {this.time}/>
+                    <h1>Single Player</h1>
                     <div className="numbers">
                         {this.state.numbers.map((num, index) => {
                             return(<li key={index}>{num}</li>)
                         })}
                     </div>
                     <div tabIndex={0} onKeyDown={this.handleKey} ref={this.myDiv}>
-                        <div><p>Which number is smaller?</p></div>
-                        <p>{this.state.numbers[this.state.left_index]}</p>
-                        <p>{this.state.numbers[this.state.right_index]}</p>
+                        <h2>Which number is smaller?</h2>
+                        <div className='comparison'>
+                            <p>{this.state.numbers[this.state.left_index]}</p>
+                            <p>{this.state.numbers[this.state.right_index]}</p>
+                        </div>
                         {this.state.incorrect ? <p>❌</p> : null}
+                    </div>
+                    <div className='timer'>
+                        <Stopwatch glob = {this.time}/>
                     </div>
                 </div>
             )
