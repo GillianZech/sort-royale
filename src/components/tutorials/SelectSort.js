@@ -30,7 +30,7 @@ class SelectSort extends BaseTutorial {
             </div>
             <div>
                 <button onClick={() => {this.nextStep()}}>Next step</button>
-                </div>
+            </div>
         </div>
         )
     }
@@ -120,6 +120,24 @@ class SelectSort extends BaseTutorial {
         </div>
         )
     }
+    step_five() {
+        return (
+            <div>
+                <p>Now, the list is completely sorted!</p>
+                {this.state.numbers.map((num, index) => {
+                        return(<li key={index}>{num}</li>)
+                })}
+                <p>Selection sort is great for small random lists, since it iterates through the entire list and doesn't rely on numbers being almost correct like Bubble Sort does. However, in long lists, it has to make so many comparisons that it becomes inefficient fast.</p>
+                <button onClick={() => {this.setState({
+                    left_index: 1,
+                    right_index: 2,
+                    step: 0,
+                    correct: null,
+                    numbers: [5, 2, 9, 6, 3]
+                })}}>Restart tutorial</button>
+            </div>
+        )
+    }
     render () {
         return (
             <div>
@@ -137,7 +155,7 @@ class SelectSort extends BaseTutorial {
             correct: null,
             numbers: [5, 2, 9, 6, 3]
         }
-        this.steps = [this.step_one, this.step_two, this.step_three, this.step_four];
+        this.steps = [this.step_one, this.step_two, this.step_three, this.step_four, this.step_five];
     }
 }
 
