@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import BubbleSort from '../game_algorithms/BubbleSort';
 import SelectSort from '../game_algorithms/SelectSort';
 
-import Stopwatch from '../game_algorithms/stopwatch';
+import Stopwatch from './stopwatch';
 
 import "./Game.css";
 
