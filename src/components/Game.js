@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 
-// import BubbleGame from '../game_algorithms/BubbleGame';
-// import SelectGame from '../game_algorithms/SelectGame';
-
 import BubbleSort from '../game_algorithms/BubbleSort';
 import SelectSort from '../game_algorithms/SelectSort';
 
@@ -256,9 +253,6 @@ class Game extends Component {
                     </div>
                 : 
                 <div className="Game-started">
-                    {/* <BubbleGame numbers = {this.state.number_list}/>
-                    <SelectGame numbers = {this.state.number_list}/> */}
-
                     {!this.state.complete ? 
                         <div>
                             <h1>Single Player</h1>
