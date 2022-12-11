@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 // import { MultiplayerContext } from './multiplayerContext';
 
-import BubbleMulti from '../game_algorithms/BubbleMulti';
-import SelectMulti from '../game_algorithms/SelectMulti';
+import BubbleSort from '../game_algorithms/BubbleSort';
+import SelectSort from '../game_algorithms/SelectSort';
 
 import "./Game.css";
 
@@ -52,16 +52,16 @@ class Game extends Component {
         const right_keys = ['ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight'];
 
         if (left_keys.includes(e.key)) {
-            if (this.state.left_algo instanceof BubbleMulti) {
+            if (this.state.left_algo instanceof BubbleSort) {
                 this.handleBubble(this.state.left_algo, e.key)
-            } else if (this.state.left_algo instanceof SelectMulti) {
+            } else if (this.state.left_algo instanceof SelectSort) {
                 this.handleSelect(this.state.left_algo, e.key)
             }
 
         } else if (right_keys.includes(e.key)) {
-            if (this.state.right_algo instanceof BubbleMulti) {
+            if (this.state.right_algo instanceof BubbleSort) {
                 this.handleBubble(this.state.right_algo, e.key)
-            }else if (this.state.right_algo instanceof SelectMulti) {
+            }else if (this.state.right_algo instanceof SelectSort) {
                 this.handleSelect(this.state.right_algo, e.key)
             }
         }
@@ -180,14 +180,14 @@ class Game extends Component {
             let left_algo = null
             let right_algo = null
             if (this.state.left_choice === "select") {
-                left_algo = new SelectMulti(numbers.map((x) => x))
+                left_algo = new SelectSort(numbers.map((x) => x))
             } else {
-                left_algo = new BubbleMulti(numbers.map((x) => x))
+                left_algo = new BubbleSort(numbers.map((x) => x))
             }
             if (this.state.right_choice === "select") {
-                right_algo = new SelectMulti(numbers.map((x) => x))
+                right_algo = new SelectSort(numbers.map((x) => x))
             } else {
-                right_algo = new BubbleMulti(numbers.map((x) => x))
+                right_algo = new BubbleSort(numbers.map((x) => x))
             }
             this.setState({
                 game_started: true,
@@ -199,7 +199,7 @@ class Game extends Component {
     }
 
     getDisplay(algo) {
-        if (algo instanceof BubbleMulti) {
+        if (algo instanceof BubbleSort) {
             return (
                 <div className='active-game'>
                     <h2>Which number is smaller?</h2>
@@ -209,7 +209,7 @@ class Game extends Component {
                     </div>
                 </div>
             )
-        } else if (algo instanceof SelectMulti) {
+        } else if (algo instanceof SelectSort) {
             return (
                 <div>
                     <h2>Is this the smallest number after/including {algo.getNums()[0]}</h2>

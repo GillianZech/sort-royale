@@ -1,6 +1,6 @@
 import BaseAlgo from './BaseAlgo.js';
 
-class BubbleMulti extends BaseAlgo {
+class BubbleSort extends BaseAlgo {
     constructor (numbers) {
         super();
 
@@ -49,4 +49,4 @@ class BubbleMulti extends BaseAlgo {
     }
 }
 
-export default BubbleMulti;
+export default BubbleSort;

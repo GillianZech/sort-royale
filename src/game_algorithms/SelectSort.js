@@ -1,5 +1,9 @@
-class SelectMulti {
+import BaseAlgo from "./BaseAlgo";
+
+class SelectSort extends BaseAlgo{
     constructor (numbers) {
+        super(); 
+
         this.numbers = numbers
         this.left = 0
         this.right = 0
@@ -62,4 +66,4 @@ class SelectMulti {
     }
 }
 
-export default SelectMulti;
+export default SelectSort;
