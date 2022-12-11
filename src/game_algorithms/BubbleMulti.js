@@ -1,5 +1,9 @@
-class BubbleMulti {
+import BaseAlgo from './BaseAlgo.js';
+
+class BubbleMulti extends BaseAlgo {
     constructor (numbers) {
+        super();
+
         this.numbers = numbers
         this.left = 0
         this.right = 1

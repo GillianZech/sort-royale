@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 // import { MultiplayerContext } from './multiplayerContext';
 
-import BubbleMulti from './multiplayer_algos/BubbleMulti';
-import SelectMulti from './multiplayer_algos/SelectMulti';
+import BubbleMulti from '../game_algorithms/BubbleMulti';
+import SelectMulti from '../game_algorithms/SelectMulti';
 
 import "./Game.css";
 
@@ -16,8 +16,6 @@ class Game extends Component {
             number_count: 10,
             number_list: [],
 
-            left_nums: [],
-            right_nums: [],
             left_choice: 'bubble',
             right_choice: 'bubble',
             left_algo: null,
@@ -80,7 +78,6 @@ class Game extends Component {
             let correct = algo.checkCorrect(key)
             if (correct) {
                 algo.incNums()
-                this.setState({left_nums: this.state.left_algo.numbers, right_nums: this.state.right_algo.numbers})
             } else {
                 if (key === 'a') {
                     this.setState({left_mistakes: this.state.left_mistakes + 1})
@@ -93,7 +90,6 @@ class Game extends Component {
             if (correct) {
                 algo.moveNumber(algo.right, algo.left)
                 algo.incNums()
-                this.setState({left_nums: this.state.left_algo.numbers, right_nums: this.state.right_algo.numbers})
             } else {
                 if (key === 'd') {
                     this.setState({left_mistakes: this.state.left_mistakes + 1})
@@ -131,13 +127,6 @@ class Game extends Component {
             }
         }
     }
-    
-    setCurrentNumbers = (left, right) => {
-        this.setState({
-            left_number: left,
-            right_number: right
-        })
-    }
 
     generateRandomNumbers = (n) => {
         this.setState({number_list: []})
@@ -151,7 +140,7 @@ class Game extends Component {
             previous = num;
             i += 1;
         }
-        this.setState({number_list: numbers, left_nums: numbers, right_nums: numbers})
+        this.setState({number_list: numbers})
         return (numbers);
     }
 
