@@ -37,7 +37,10 @@ class Game extends Component {
     }
 
     handleKey = (e) => {
+        // Prevent key handling if frozen or if the game hasn't started.
         if (!this.state.game_started) {
+            return
+        } else if (this.state.incorrect) {
             return
         }
 
@@ -76,6 +79,9 @@ class Game extends Component {
                 this.setState({incorrect: false})
             } else {
                 this.setState({incorrect: true})
+                setTimeout(() => {
+                    this.setState({incorrect: false})
+                }, 1000)
             }
         } else if (['d', 'ArrowRight'].includes(key)) {
             let correct = algo.checkCorrect(key)
@@ -85,6 +91,9 @@ class Game extends Component {
                 this.setState({incorrect: false})
             } else {
                 this.setState({incorrect: true})
+                setTimeout(() => {
+                    this.setState({incorrect: false})
+                }, 1000)
             }
         }
     }
@@ -254,7 +263,7 @@ class Game extends Component {
                 : 
                 <div className="Game-started">
                     {!this.state.complete ? 
-                        <div>
+                        <div className={this.state.incorrect ? "frozen" : "unfrozen"}>
                             <h1>Single Player</h1>
                             <div className="numbers">
                                 {this.state.algo.numbers.map((num, index) => {
@@ -263,7 +272,6 @@ class Game extends Component {
                             </div>
                             <div>
                                 {this.getDisplay(this.state.algo)}
-                                {this.state.incorrect ? <p>❌</p> : null}
                             </div>
                             <div className='timer'>
                                 <Stopwatch glob = {this.state.time}/>

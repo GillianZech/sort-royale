@@ -22,6 +22,8 @@ class Game extends Component {
             right_algo: null,
             left_mistakes: 0,
             right_mistakes: 0,
+            left_incorrect: false,
+            right_incorrect: false,
 
             winner: null
         }
@@ -52,16 +54,27 @@ class Game extends Component {
         const right_keys = ['ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight'];
 
         if (left_keys.includes(e.key)) {
+            // Check if left player is frozen
+            if (this.state.left_incorrect) {
+                return
+            }
+
+            // Otherwise, handle key press
             if (this.state.left_algo instanceof BubbleSort) {
                 this.handleBubble(this.state.left_algo, e.key)
             } else if (this.state.left_algo instanceof SelectSort) {
                 this.handleSelect(this.state.left_algo, e.key)
             }
-
         } else if (right_keys.includes(e.key)) {
+            // Check if right player is frozen
+            if (this.state.right_incorrect) {
+                return
+            }
+
+            // Otherwise, handle key press
             if (this.state.right_algo instanceof BubbleSort) {
                 this.handleBubble(this.state.right_algo, e.key)
-            }else if (this.state.right_algo instanceof SelectSort) {
+            } else if (this.state.right_algo instanceof SelectSort) {
                 this.handleSelect(this.state.right_algo, e.key)
             }
         }
@@ -80,9 +93,15 @@ class Game extends Component {
                 algo.incNums()
             } else {
                 if (key === 'a') {
-                    this.setState({left_mistakes: this.state.left_mistakes + 1})
+                    this.setState({left_mistakes: this.state.left_mistakes + 1, left_incorrect: true})
+                    setTimeout(() => {
+                        this.setState({left_incorrect: false})
+                    }, 1000)
                 } else {
-                    this.setState({right_mistakes: this.state.right_mistakes + 1})
+                    this.setState({right_mistakes: this.state.right_mistakes + 1, right_incorrect: true})
+                    setTimeout(() => {
+                        this.setState({right_incorrect: false})
+                    }, 1000)
                 }
             }
         } else if (['d', 'ArrowRight'].includes(key)) {
@@ -92,9 +111,15 @@ class Game extends Component {
                 algo.incNums()
             } else {
                 if (key === 'd') {
-                    this.setState({left_mistakes: this.state.left_mistakes + 1})
+                    this.setState({left_mistakes: this.state.left_mistakes + 1, left_incorrect: true})
+                    setTimeout(() => {
+                        this.setState({left_incorrect: false})
+                    }, 1000)
                 } else {
-                    this.setState({right_mistakes: this.state.right_mistakes + 1})
+                    this.setState({right_mistakes: this.state.right_mistakes + 1, right_incorrect: true})
+                    setTimeout(() => {
+                        this.setState({right_incorrect: false})
+                    }, 1000)
                 }
             }
         }
@@ -109,9 +134,15 @@ class Game extends Component {
                 algo.right = algo.left
             } else {
                 if (key === 'w') {
-                    this.setState({left_mistakes: this.state.left_mistakes + 1})
+                    this.setState({left_mistakes: this.state.left_mistakes + 1, left_incorrect: true})
+                    setTimeout(() => {
+                        this.setState({left_incorrect: false})
+                    }, 1000)
                 } else {
-                    this.setState({right_mistakes: this.state.right_mistakes + 1})
+                    this.setState({right_mistakes: this.state.right_mistakes + 1, right_incorrect: true})
+                    setTimeout(() => {
+                        this.setState({right_incorrect: false})
+                    }, 1000)
                 }
             }
         } else if (['s', 'ArrowDown'].includes(key)) {
@@ -120,9 +151,15 @@ class Game extends Component {
                 algo.incRight()
             } else {
                 if (key === 's') {
-                    this.setState({left_mistakes: this.state.left_mistakes + 1})
+                    this.setState({left_mistakes: this.state.left_mistakes + 1, left_incorrect: true})
+                    setTimeout(() => {
+                        this.setState({left_incorrect: false})
+                    }, 1000)
                 } else {
-                    this.setState({right_mistakes: this.state.right_mistakes + 1})
+                    this.setState({right_mistakes: this.state.right_mistakes + 1, right_incorrect: true})
+                    setTimeout(() => {
+                        this.setState({right_incorrect: false})
+                    }, 1000)
                 }
             }
         }
@@ -267,16 +304,20 @@ class Game extends Component {
 
                             <div className='player-sides'>
                                 <div className="left-player">
-                                    <div className="array">
-                                        {this.state.left_algo.numbers.map((num, index) => {return(<li key={index}>{num}</li>)})}
+                                    <div className={this.state.left_incorrect ? "frozen" : "unfrozen"}>
+                                        <div className="array">
+                                            {this.state.left_algo.numbers.map((num, index) => {return(<li key={index}>{num}</li>)})}
+                                        </div>
+                                        {this.getDisplay(this.state.left_algo)}
                                     </div>
-                                    {this.getDisplay(this.state.left_algo)}
                                 </div>
                                 <div className="right-player">
-                                    <div className="array">
-                                        {this.state.right_algo.numbers.map((num, index) => {return(<li key={index}>{num}</li>)})}
+                                    <div className={this.state.right_incorrect ? "frozen" : "unfrozen"}>
+                                        <div className="array">
+                                            {this.state.right_algo.numbers.map((num, index) => {return(<li key={index}>{num}</li>)})}
+                                        </div>
+                                        {this.getDisplay(this.state.right_algo)}
                                     </div>
-                                    {this.getDisplay(this.state.right_algo)}
                                 </div>
                             </div>
                         </div> : 

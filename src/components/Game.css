@@ -13,3 +13,19 @@
 body {
     /* background-color: hsla(97, 46%, 88%, 1); */
 }
+
+.frozen {
+    background-color: rgba(224, 34, 34, 0.5);
+    -webkit-transition: all 0.05s linear;
+    -moz-transition: all 0.05s linear;
+    -o-transition: all 0.05s linear;
+    transition: all 0.05s linear;
+}
+
+.unfrozen {
+    background-color: unset;
+    -webkit-transition: all 0.05s linear;
+    -moz-transition: all 0.05s linear;
+    -o-transition: all 0.05s linear;
+    transition: all 0.05s linear;
+}
