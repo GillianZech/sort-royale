@@ -239,16 +239,30 @@ class Game extends Component {
         if (algo instanceof BubbleSort) {
             return (
                 <div className='active-game'>
-                    <h2>Which number is smaller?</h2>
+                    <div className="array">
+                        {algo.numbers.map((num, index) => {
+                            if (index === algo.left || index === algo.right) {
+                                return(<b><u><li key={index}>{num}</li></u></b>)
+                            } else {
+                                return(<li key={index}>{num}</li>)
+                            }
+                        })}
+                    </div>
+                    <h2>Should these numbers be swapped?</h2>
                     <div className='comparison'>
-                        <p>{algo.getNums()[0]}</p>
-                        <p>{algo.getNums()[1]}</p>
+                        <p>← Don't swap</p>
+                        <p>Swap →</p>
                     </div>
                 </div>
             )
         } else if (algo instanceof SelectSort) {
             return (
                 <div>
+                    <div className="array">
+                        {algo.numbers.map((num, index) => {
+                            return(<li key={index}>{num}</li>)
+                        })}
+                    </div>
                     <h2>Is this the smallest number after/including {algo.getNums()[0]}</h2>
                     <p>{algo.getNums()[1]}</p>
                 </div>
@@ -305,17 +319,11 @@ class Game extends Component {
                             <div className='player-sides'>
                                 <div className="left-player">
                                     <div className={this.state.left_incorrect ? "frozen" : "unfrozen"}>
-                                        <div className="array">
-                                            {this.state.left_algo.numbers.map((num, index) => {return(<li key={index}>{num}</li>)})}
-                                        </div>
                                         {this.getDisplay(this.state.left_algo)}
                                     </div>
                                 </div>
                                 <div className="right-player">
                                     <div className={this.state.right_incorrect ? "frozen" : "unfrozen"}>
-                                        <div className="array">
-                                            {this.state.right_algo.numbers.map((num, index) => {return(<li key={index}>{num}</li>)})}
-                                        </div>
                                         {this.getDisplay(this.state.right_algo)}
                                     </div>
                                 </div>

@@ -206,10 +206,32 @@ class Game extends Component {
         if (algo instanceof BubbleSort) {
             return (
                 <div className='active-game'>
-                    <h2>Which number is smaller?</h2>
+                    <div className="numbers">
+                        {this.state.algo.numbers.map((num, index) => {
+                            if (index === this.state.algo.left || index === this.state.algo.right) {
+                                return(<b><u><li key={index}>{num}</li></u></b>)
+                            } else {
+                                return(<li key={index}>{num}</li>)
+                            }
+                        })}
+                    </div>
+                    {/* ATTEMPT AT MAKING ARROWS BELOW THE NUMBERS
+                        THEY DON'T WORK VERY WELL AND I GAVE UP
+                    <div className="numbers">
+                        {this.state.algo.numbers.map((num, index) => {
+                            if (index === this.state.algo.left || index === this.state.algo.right) {
+                                return(<li>↑</li>)
+                            } else {
+                                return(<li>  </li>)
+                            }
+                        })}
+                    </div> */}
+                    <h2>Should these numbers be swapped?</h2>
                     <div className='comparison'>
-                        <p>{algo.getNums()[0]}</p>
-                        <p>{algo.getNums()[1]}</p>
+                        {/* <p>{algo.getNums()[0]}</p>
+                        <p>{algo.getNums()[1]}</p> */}
+                        <p>← Don't swap</p>
+                        <p>Swap →</p>
                     </div>
                 </div>
             )
@@ -265,11 +287,6 @@ class Game extends Component {
                     {!this.state.complete ? 
                         <div className={this.state.incorrect ? "frozen" : "unfrozen"}>
                             <h1>Single Player</h1>
-                            <div className="numbers">
-                                {this.state.algo.numbers.map((num, index) => {
-                                    return(<li key={index}>{num}</li>)
-                                })}
-                            </div>
                             <div>
                                 {this.getDisplay(this.state.algo)}
                             </div>
