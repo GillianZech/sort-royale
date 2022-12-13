@@ -34,11 +34,14 @@ class BubbleSort extends BaseAlgo {
     }
     
     checkCorrect(key) {
+        // For bubble sort duplicates, the left number is the correct one,
+        // since there's no reason to swap numbers if they're the same
         if (key === "a" || key === 'ArrowLeft') {
-            // Check if left number is smaller
+            // Check if left number is smaller or the same
             return this.numbers[this.left] <= this.numbers[this.right]
         } else if (key === "d" || key === 'ArrowRight') {
-            return this.numbers[this.right] <= this.numbers[this.left]
+            // Check if the right number is smaller
+            return this.numbers[this.right] < this.numbers[this.left]
         }
     }
 
