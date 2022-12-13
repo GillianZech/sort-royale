@@ -33,8 +33,7 @@ class App extends Component {
     if (this.state.screen != null) {
       return (
         <div className='back-to-title-screen'>
-          <button className='back-to-title-screen-button' onClick={()=>{this.setState({screen: null});
-        console.log(this.state)}}>Back to title screen</button>
+          <button className='back-to-title-screen-button' onClick={()=>{this.setState({screen: null})}}>Back to title screen</button>
           {/* Button to go to a settings page? Maybe for accessibility options. */}
           {/* <button onClick={()=>{this.setState({screen: null})}}>Back to title screen</button> */}
         </div>
