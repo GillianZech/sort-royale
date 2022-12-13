@@ -39,6 +39,20 @@ class Game extends Component {
         this.myDiv.current.removeEventListener('keydown', this.handleKey);
     }
 
+    incorrectAnswer(player, time=1000) {
+        if (player === "left") {
+            this.setState({left_mistakes: this.state.left_mistakes + 1, left_incorrect: true})
+            setTimeout(() => {
+                this.setState({left_incorrect: false})
+            }, time)
+        } else if (player === "right") {
+            this.setState({right_mistakes: this.state.right_mistakes + 1, right_incorrect: true})
+            setTimeout(() => {
+                this.setState({right_incorrect: false})
+            }, 1000)
+        }
+    }
+
     handleKey = (e) => {
         if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
             e.preventDefault();
@@ -93,15 +107,9 @@ class Game extends Component {
                 algo.incNums()
             } else {
                 if (key === 'a') {
-                    this.setState({left_mistakes: this.state.left_mistakes + 1, left_incorrect: true})
-                    setTimeout(() => {
-                        this.setState({left_incorrect: false})
-                    }, 1000)
+                    this.incorrectAnswer("left")
                 } else {
-                    this.setState({right_mistakes: this.state.right_mistakes + 1, right_incorrect: true})
-                    setTimeout(() => {
-                        this.setState({right_incorrect: false})
-                    }, 1000)
+                    this.incorrectAnswer("right")
                 }
             }
         } else if (['d', 'ArrowRight'].includes(key)) {
@@ -111,22 +119,23 @@ class Game extends Component {
                 algo.incNums()
             } else {
                 if (key === 'd') {
-                    this.setState({left_mistakes: this.state.left_mistakes + 1, left_incorrect: true})
-                    setTimeout(() => {
-                        this.setState({left_incorrect: false})
-                    }, 1000)
+                    this.incorrectAnswer("left")
                 } else {
-                    this.setState({right_mistakes: this.state.right_mistakes + 1, right_incorrect: true})
-                    setTimeout(() => {
-                        this.setState({right_incorrect: false})
-                    }, 1000)
+                    this.incorrectAnswer("right")
                 }
             }
         }
     }
 
     handleSelect(algo, key) {
-        if (['w', 'ArrowUp'].includes(key)) {
+        if (['a', 'ArrowLeft'].includes(key)) {
+            // Moves the "cursor" leftwards
+            algo.decRight()
+        } else if (['d', 'ArrowRight'].includes(key)) {
+            // Moves the "cursor" rightwards
+            algo.incRight()
+        } else if (['w', 'ArrowUp'].includes(key)) {
+            // Attempts to switch the two numbers
             let correct = algo.checkCorrect(key)
             if (correct) {
                 algo.swapNumbers(algo.left, algo.right)
@@ -134,32 +143,22 @@ class Game extends Component {
                 algo.right = algo.left
             } else {
                 if (key === 'w') {
-                    this.setState({left_mistakes: this.state.left_mistakes + 1, left_incorrect: true})
-                    setTimeout(() => {
-                        this.setState({left_incorrect: false})
-                    }, 1000)
+                    this.incorrectAnswer("left")
                 } else {
-                    this.setState({right_mistakes: this.state.right_mistakes + 1, right_incorrect: true})
-                    setTimeout(() => {
-                        this.setState({right_incorrect: false})
-                    }, 1000)
+                    this.incorrectAnswer("right")
                 }
             }
         } else if (['s', 'ArrowDown'].includes(key)) {
+            // If there is no number that should be switched
             let correct = algo.checkCorrect(key)
             if (correct) {
-                algo.incRight()
+                algo.incLeft()
+                algo.right = algo.left
             } else {
                 if (key === 's') {
-                    this.setState({left_mistakes: this.state.left_mistakes + 1, left_incorrect: true})
-                    setTimeout(() => {
-                        this.setState({left_incorrect: false})
-                    }, 1000)
+                    this.incorrectAnswer("left")
                 } else {
-                    this.setState({right_mistakes: this.state.right_mistakes + 1, right_incorrect: true})
-                    setTimeout(() => {
-                        this.setState({right_incorrect: false})
-                    }, 1000)
+                    this.incorrectAnswer("right")
                 }
             }
         }
@@ -258,13 +257,16 @@ class Game extends Component {
         } else if (algo instanceof SelectSort) {
             return (
                 <div>
-                    <div className="array">
+                    <div className="numbers">
                         {algo.numbers.map((num, index) => {
-                            return(<li key={index}>{num}</li>)
+                            if (index === algo.left || index === algo.right) {
+                                return(<b><u><li key={index}>{num}</li></u></b>)
+                            } else {
+                                return(<li key={index}>{num}</li>)
+                            }
                         })}
                     </div>
-                    <h2>Is this the smallest number after/including {algo.getNums()[0]}</h2>
-                    <p>{algo.getNums()[1]}</p>
+                    <h2>Find the number that should be switched with {algo.getNums()[0]}</h2>
                 </div>
             )
         }

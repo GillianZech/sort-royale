@@ -36,6 +36,13 @@ class Game extends Component {
         this.myDiv.current.removeEventListener('keydown', this.handleKey);
     }
 
+    incorrectAnswer(time = 1000) {
+        this.setState({incorrect: true})
+        setTimeout(() => {
+            this.setState({incorrect: false})
+        }, time)
+    }
+
     handleKey = (e) => {
         // Prevent key handling if frozen or if the game hasn't started.
         if (!this.state.game_started) {
@@ -99,23 +106,30 @@ class Game extends Component {
     }
 
     handleSelect(algo, key) {
-        if (['w', 'ArrowUp'].includes(key)) {
+        if (['a', 'ArrowLeft'].includes(key)) {
+            // Moves the "cursor" leftwards
+            algo.decRight()
+        } else if (['d', 'ArrowRight'].includes(key)) {
+            // Moves the "cursor" rightwards
+            algo.incRight()
+        } else if (['w', 'ArrowUp'].includes(key)) {
+            // Attempts to switch the two numbers
             let correct = algo.checkCorrect(key)
             if (correct) {
                 algo.swapNumbers(algo.left, algo.right)
                 algo.incLeft()
                 algo.right = algo.left
-                this.setState({incorrect: false})
             } else {
-                this.setState({incorrect: true})
+                this.incorrectAnswer()
             }
         } else if (['s', 'ArrowDown'].includes(key)) {
+            // If there is no number that should be switched
             let correct = algo.checkCorrect(key)
             if (correct) {
-                algo.incRight()
-                this.setState({incorrect: false})
+                algo.incLeft()
+                algo.right = algo.left
             } else {
-                this.setState({incorrect: true})
+                this.incorrectAnswer()
             }
         }
     }
@@ -207,8 +221,8 @@ class Game extends Component {
             return (
                 <div className='active-game'>
                     <div className="numbers">
-                        {this.state.algo.numbers.map((num, index) => {
-                            if (index === this.state.algo.left || index === this.state.algo.right) {
+                        {algo.numbers.map((num, index) => {
+                            if (index === algo.left || index === algo.right) {
                                 return(<b><u><li key={index}>{num}</li></u></b>)
                             } else {
                                 return(<li key={index}>{num}</li>)
@@ -238,8 +252,16 @@ class Game extends Component {
         } else if (algo instanceof SelectSort) {
             return (
                 <div>
-                    <h2>Is this the smallest number after/including {algo.getNums()[0]}</h2>
-                    <p>{algo.getNums()[1]}</p>
+                    <div className="numbers">
+                        {algo.numbers.map((num, index) => {
+                            if (index === algo.left || index === algo.right) {
+                                return(<b><u><li key={index}>{num}</li></u></b>)
+                            } else {
+                                return(<li key={index}>{num}</li>)
+                            }
+                        })}
+                    </div>
+                    <h2>Find the number that should be switched with {algo.getNums()[0]}</h2>
                 </div>
             )
         }
@@ -267,7 +289,7 @@ class Game extends Component {
 
                         <div>
                             <label htmlFor="algorithms">Choose a sorting algorithm to use:</label>
-                            <select name="algorithms" id="algorithms" onChange={e => this.setState({left_choice: e.target.value})}>
+                            <select name="algorithms" id="algorithms" onChange={e => this.setState({choice: e.target.value})}>
                             <option value="bubble">Bubble Sort</option>
                             <option value="select">Select Sort</option>
                             </select>

@@ -27,7 +27,15 @@ class SelectSort extends BaseAlgo{
         this.right += 1
 
         if (this.right === this.numbers.length) {
-            this.right = this.left
+            this.right = 0
+        }
+    }
+
+    decRight() {
+        this.right -= 1
+
+        if (this.right === -1) {
+            this.right = this.numbers.length - 1
         }
     }
 
@@ -37,23 +45,32 @@ class SelectSort extends BaseAlgo{
     
     checkCorrect(key) {
         if (key === "w" || key === 'ArrowUp') {
-            // Check if right number is the smallest remaining
+            // Make sure the right number is to the right of the left number
+            if (this.right <= this.left) {
+                return false
+            }
+
+            // Check if right number is the smallest remaining (swap left and right)
             let num = this.numbers[this.right]
+            for (let i = this.left; i < this.numbers.length; i++) {
+                if (this.numbers[i] < num) {
+                    return false
+                } else if (this.numbers[i] === num && this.right > i) {
+                    // If there's a duplicate, make sure it's the first appearing of the duplicates
+                    return false
+                }
+            }
+            return true
+        } else if (key === "s" || key === 'ArrowDown') {
+            // Check if left number is the smallest remaining (no swaps)
+            // Duplicates should not be swapped
+            let num = this.numbers[this.left]
             for (let i = this.left; i < this.numbers.length; i++) {
                 if (this.numbers[i] < num) {
                     return false
                 }
             }
             return true
-        } else if (key === "s" || key === 'ArrowDown') {
-            // Same thing but switch results
-            let num = this.numbers[this.right]
-            for (let i = this.left; i < this.numbers.length; i++) {
-                if (this.numbers[i] < num) {
-                    return true
-                }
-            }
-            return false
         }
     }
 
