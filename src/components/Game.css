@@ -2,6 +2,7 @@
     display: flex;
     flex-flow: row wrap;
     list-style-type: none;
+    font-size: 3rem;
     /* margin: 0; */
     /* padding: 0; */
 }
@@ -28,4 +29,8 @@ body {
     -moz-transition: all 0.05s linear;
     -o-transition: all 0.05s linear;
     transition: all 0.05s linear;
+}
+
+.comparison {
+    font-size: 3rem;
 }
