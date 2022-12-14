@@ -6,6 +6,7 @@ import SelectSort from '../game_algorithms/SelectSort';
 import Stopwatch from './stopwatch';
 
 import "./Game.css";
+import InsertionSort from '../game_algorithms/InsertionSort';
 
 class Game extends Component {
     constructor() {
@@ -70,6 +71,8 @@ class Game extends Component {
             this.handleBubble(this.state.algo, e.key)
         } else if (this.state.algo instanceof SelectSort) {
             this.handleSelect(this.state.algo, e.key)
+        } else if (this.state.algo instanceof InsertionSort) {
+            this.handleInsertion(this.state.algo, e.key)
         }
 
         // Check if the array is fully sorted
@@ -83,24 +86,16 @@ class Game extends Component {
             let correct = algo.checkCorrect(key)
             if (correct) {
                 algo.incNums()
-                this.setState({incorrect: false})
             } else {
-                this.setState({incorrect: true})
-                setTimeout(() => {
-                    this.setState({incorrect: false})
-                }, 1000)
+                this.incorrectAnswer()
             }
         } else if (['d', 'ArrowRight'].includes(key)) {
             let correct = algo.checkCorrect(key)
             if (correct) {
                 algo.moveNumber(algo.right, algo.left)
                 algo.incNums()
-                this.setState({incorrect: false})
             } else {
-                this.setState({incorrect: true})
-                setTimeout(() => {
-                    this.setState({incorrect: false})
-                }, 1000)
+                this.incorrectAnswer()
             }
         }
     }
@@ -128,6 +123,25 @@ class Game extends Component {
             if (correct) {
                 algo.incLeft()
                 algo.right = algo.left
+            } else {
+                this.incorrectAnswer()
+            }
+        }
+    }
+
+    handleInsertion(algo, key) {
+        if (['a', 'ArrowLeft'].includes(key)) {
+            let correct = algo.checkCorrect(key)
+            if (correct) {
+                algo.decNums()
+            } else {
+                this.incorrectAnswer()
+            }
+        } else if (['d', 'ArrowRight'].includes(key)) {
+            let correct = algo.checkCorrect(key)
+            if (correct) {
+                algo.moveNumber(algo.right, algo.left)
+                algo.decNums()
             } else {
                 this.incorrectAnswer()
             }
@@ -189,6 +203,9 @@ class Game extends Component {
                     break
                 case "select":
                     this.setState({algo: new SelectSort(numbers.map((x) => x))})
+                    break
+                case "insertion":
+                    this.setState({algo: new InsertionSort(numbers.map((x) => x))})
                     break
                 default:
                     this.setState({algo: new BubbleSort(numbers.map((x) => x))})
@@ -264,6 +281,29 @@ class Game extends Component {
                     <h2>Find the number that should be switched with {algo.getNums()[0]}</h2>
                 </div>
             )
+        } else if (algo instanceof InsertionSort) {
+            return (
+                <div className='active-game'>
+                    <p><div style={{color: "#990000"}}>Red: </div>sorted subarray</p>
+                    <div className="numbers">
+                        {algo.numbers.map((num, index) => {
+                            if (index === algo.left || index === algo.right) {
+                                return(
+                                    <b><u><li key={index} style={index <= algo.subarray_length ? {color: "#990000"} : {}}>
+                                        {num}
+                                    </li></u></b>)
+                            } else {
+                                return(<li key={index} style={index <= algo.subarray_length ? {color: "#990000"} : {}}>{num}</li>)
+                            }
+                        })}
+                    </div>
+                    <h2>Should these numbers be swapped?</h2>
+                    <div className='comparison'>
+                        <p>← Don't swap</p>
+                        <p>Swap →</p>
+                    </div>
+                </div>
+            )
         }
     }
 
@@ -290,8 +330,9 @@ class Game extends Component {
                         <div>
                             <label htmlFor="algorithms">Choose a sorting algorithm to use:</label>
                             <select name="algorithms" id="algorithms" onChange={e => this.setState({choice: e.target.value})}>
-                            <option value="bubble">Bubble Sort</option>
-                            <option value="select">Select Sort</option>
+                                <option value="bubble">Bubble Sort</option>
+                                <option value="select">Select Sort</option>
+                                <option value="insertion">Insertion Sort</option>
                             </select>
                         </div>
 
