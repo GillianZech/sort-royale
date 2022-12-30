@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 // import { MultiplayerContext } from './multiplayerContext';
 
-import BubbleMulti from './multiplayer_algos/BubbleMulti';
-import SelectMulti from './multiplayer_algos/SelectMulti';
+import BubbleSort from '../game_algorithms/BubbleSort';
+import SelectSort from '../game_algorithms/SelectSort';
+import InsertionSort from '../game_algorithms/InsertionSort';
 
 import "./Game.css";
 
@@ -16,14 +17,14 @@ class Game extends Component {
             number_count: 10,
             number_list: [],
 
-            left_nums: [],
-            right_nums: [],
             left_choice: 'bubble',
             right_choice: 'bubble',
             left_algo: null,
             right_algo: null,
             left_mistakes: 0,
             right_mistakes: 0,
+            left_incorrect: false,
+            right_incorrect: false,
 
             winner: null
         }
@@ -37,6 +38,20 @@ class Game extends Component {
 
     componentWillUnmount() {
         this.myDiv.current.removeEventListener('keydown', this.handleKey);
+    }
+
+    incorrectAnswer(player, time=1000) {
+        if (player === "left") {
+            this.setState({left_mistakes: this.state.left_mistakes + 1, left_incorrect: true})
+            setTimeout(() => {
+                this.setState({left_incorrect: false})
+            }, time)
+        } else if (player === "right") {
+            this.setState({right_mistakes: this.state.right_mistakes + 1, right_incorrect: true})
+            setTimeout(() => {
+                this.setState({right_incorrect: false})
+            }, 1000)
+        }
     }
 
     handleKey = (e) => {
@@ -54,17 +69,32 @@ class Game extends Component {
         const right_keys = ['ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight'];
 
         if (left_keys.includes(e.key)) {
-            if (this.state.left_algo instanceof BubbleMulti) {
-                this.handleBubble(this.state.left_algo, e.key)
-            } else if (this.state.left_algo instanceof SelectMulti) {
-                this.handleSelect(this.state.left_algo, e.key)
+            // Check if left player is frozen
+            if (this.state.left_incorrect) {
+                return
             }
 
+            // Otherwise, handle key press
+            if (this.state.left_algo instanceof BubbleSort) {
+                this.handleBubble(this.state.left_algo, e.key)
+            } else if (this.state.left_algo instanceof SelectSort) {
+                this.handleSelect(this.state.left_algo, e.key)
+            } else if (this.state.left_algo instanceof InsertionSort) {
+                this.handleInsertion(this.state.left_algo, e.key)
+            }
         } else if (right_keys.includes(e.key)) {
-            if (this.state.right_algo instanceof BubbleMulti) {
+            // Check if right player is frozen
+            if (this.state.right_incorrect) {
+                return
+            }
+
+            // Otherwise, handle key press
+            if (this.state.right_algo instanceof BubbleSort) {
                 this.handleBubble(this.state.right_algo, e.key)
-            }else if (this.state.right_algo instanceof SelectMulti) {
+            } else if (this.state.right_algo instanceof SelectSort) {
                 this.handleSelect(this.state.right_algo, e.key)
+            } else if (this.state.right_algo instanceof InsertionSort) {
+                this.handleInsertion(this.state.right_algo, e.key)
             }
         }
 
@@ -80,12 +110,11 @@ class Game extends Component {
             let correct = algo.checkCorrect(key)
             if (correct) {
                 algo.incNums()
-                this.setState({left_nums: this.state.left_algo.numbers, right_nums: this.state.right_algo.numbers})
             } else {
                 if (key === 'a') {
-                    this.setState({left_mistakes: this.state.left_mistakes + 1})
+                    this.incorrectAnswer("left")
                 } else {
-                    this.setState({right_mistakes: this.state.right_mistakes + 1})
+                    this.incorrectAnswer("right")
                 }
             }
         } else if (['d', 'ArrowRight'].includes(key)) {
@@ -93,19 +122,25 @@ class Game extends Component {
             if (correct) {
                 algo.moveNumber(algo.right, algo.left)
                 algo.incNums()
-                this.setState({left_nums: this.state.left_algo.numbers, right_nums: this.state.right_algo.numbers})
             } else {
                 if (key === 'd') {
-                    this.setState({left_mistakes: this.state.left_mistakes + 1})
+                    this.incorrectAnswer("left")
                 } else {
-                    this.setState({right_mistakes: this.state.right_mistakes + 1})
+                    this.incorrectAnswer("right")
                 }
             }
         }
     }
 
     handleSelect(algo, key) {
-        if (['w', 'ArrowUp'].includes(key)) {
+        if (['a', 'ArrowLeft'].includes(key)) {
+            // Moves the "cursor" leftwards
+            algo.decRight()
+        } else if (['d', 'ArrowRight'].includes(key)) {
+            // Moves the "cursor" rightwards
+            algo.incRight()
+        } else if (['w', 'ArrowUp'].includes(key)) {
+            // Attempts to switch the two numbers
             let correct = algo.checkCorrect(key)
             if (correct) {
                 algo.swapNumbers(algo.left, algo.right)
@@ -113,30 +148,52 @@ class Game extends Component {
                 algo.right = algo.left
             } else {
                 if (key === 'w') {
-                    this.setState({left_mistakes: this.state.left_mistakes + 1})
+                    this.incorrectAnswer("left")
                 } else {
-                    this.setState({right_mistakes: this.state.right_mistakes + 1})
+                    this.incorrectAnswer("right")
                 }
             }
         } else if (['s', 'ArrowDown'].includes(key)) {
+            // If there is no number that should be switched
             let correct = algo.checkCorrect(key)
             if (correct) {
-                algo.incRight()
+                algo.incLeft()
+                algo.right = algo.left
             } else {
                 if (key === 's') {
-                    this.setState({left_mistakes: this.state.left_mistakes + 1})
+                    this.incorrectAnswer("left")
                 } else {
-                    this.setState({right_mistakes: this.state.right_mistakes + 1})
+                    this.incorrectAnswer("right")
                 }
             }
         }
     }
-    
-    setCurrentNumbers = (left, right) => {
-        this.setState({
-            left_number: left,
-            right_number: right
-        })
+
+    handleInsertion(algo, key) {
+        if (['a', 'ArrowLeft'].includes(key)) {
+            let correct = algo.checkCorrect(key)
+            if (correct) {
+                algo.decNums()
+            } else {
+                if (key === 'a') {
+                    this.incorrectAnswer("left")
+                } else {
+                    this.incorrectAnswer("right")
+                }
+            }
+        } else if (['d', 'ArrowRight'].includes(key)) {
+            let correct = algo.checkCorrect(key)
+            if (correct) {
+                algo.moveNumber(algo.right, algo.left)
+                algo.decNums()
+            } else {
+                if (key === 'd') {
+                    this.incorrectAnswer("left")
+                } else {
+                    this.incorrectAnswer("right")
+                }
+            }
+        }
     }
 
     generateRandomNumbers = (n) => {
@@ -151,7 +208,7 @@ class Game extends Component {
             previous = num;
             i += 1;
         }
-        this.setState({number_list: numbers, left_nums: numbers, right_nums: numbers})
+        this.setState({number_list: numbers})
         return (numbers);
     }
 
@@ -188,43 +245,97 @@ class Game extends Component {
         if (this.state.number_list.length < 2) {
             alert("Generate a list of numbers before starting the game!")
         } else {
-            let left_algo = null
-            let right_algo = null
-            if (this.state.left_choice === "select") {
-                left_algo = new SelectMulti(numbers.map((x) => x))
-            } else {
-                left_algo = new BubbleMulti(numbers.map((x) => x))
+            switch (this.state.left_choice) {
+                case "bubble":
+                    this.setState({left_algo: new BubbleSort(numbers.map((x) => x))})
+                    break
+                case "select":
+                    this.setState({left_algo: new SelectSort(numbers.map((x) => x))})
+                    break
+                case "insertion":
+                    this.setState({left_algo: new InsertionSort(numbers.map((x) => x))})
+                    break
+                default:
+                    this.setState({left_algo: new BubbleSort(numbers.map((x) => x))})
+                    break
             }
-            if (this.state.right_choice === "select") {
-                right_algo = new SelectMulti(numbers.map((x) => x))
-            } else {
-                right_algo = new BubbleMulti(numbers.map((x) => x))
+            switch (this.state.right_choice) {
+                case "bubble":
+                    this.setState({right_algo: new BubbleSort(numbers.map((x) => x))})
+                    break
+                case "select":
+                    this.setState({right_algo: new SelectSort(numbers.map((x) => x))})
+                    break
+                case "insertion":
+                    this.setState({right_algo: new InsertionSort(numbers.map((x) => x))})
+                    break
+                default:
+                    this.setState({right_algo: new BubbleSort(numbers.map((x) => x))})
+                    break
             }
             this.setState({
                 game_started: true,
                 number_list: numbers,
-                left_algo: left_algo,
-                right_algo: right_algo,
             })
         }        
     }
 
     getDisplay(algo) {
-        if (algo instanceof BubbleMulti) {
+        if (algo instanceof BubbleSort) {
             return (
                 <div className='active-game'>
-                    <h2>Which number is smaller?</h2>
+                    <div className="array">
+                        {algo.numbers.map((num, index) => {
+                            if (index === algo.left || index === algo.right) {
+                                return(<b><u><li key={index}>{num}</li></u></b>)
+                            } else {
+                                return(<li key={index}>{num}</li>)
+                            }
+                        })}
+                    </div>
+                    <h2>Should these numbers be swapped?</h2>
                     <div className='comparison'>
-                        <p>{algo.getNums()[0]}</p>
-                        <p>{algo.getNums()[1]}</p>
+                        <p>← Don't swap</p>
+                        <p>Swap →</p>
                     </div>
                 </div>
             )
-        } else if (algo instanceof SelectMulti) {
+        } else if (algo instanceof SelectSort) {
             return (
                 <div>
-                    <h2>Is this the smallest number after/including {algo.getNums()[0]}</h2>
-                    <p>{algo.getNums()[1]}</p>
+                    <div className="array">
+                        {algo.numbers.map((num, index) => {
+                            if (index === algo.left || index === algo.right) {
+                                return(<b><u><li key={index}>{num}</li></u></b>)
+                            } else {
+                                return(<li key={index}>{num}</li>)
+                            }
+                        })}
+                    </div>
+                    <h2>Find the number that should be switched with {algo.getNums()[0]}</h2>
+                </div>
+            )
+        } else if (algo instanceof InsertionSort) {
+            return (
+                <div className='active-game'>
+                    <p><div style={{color: "#990000"}}>Red: </div>sorted subarray</p>
+                    <div className="array">
+                        {algo.numbers.map((num, index) => {
+                            if (index === algo.left || index === algo.right) {
+                                return(
+                                    <b><u><li key={index} style={index <= algo.subarray_length ? {color: "#990000"} : {}}>
+                                        {num}
+                                    </li></u></b>)
+                            } else {
+                                return(<li key={index} style={index <= algo.subarray_length ? {color: "#990000"} : {}}>{num}</li>)
+                            }
+                        })}
+                    </div>
+                    <h2>Should these numbers be swapped?</h2>
+                    <div className='comparison'>
+                        <p>← Don't swap</p>
+                        <p>Swap →</p>
+                    </div>
                 </div>
             )
         }
@@ -250,15 +361,17 @@ class Game extends Component {
                         <div>
                             <label htmlFor="algorithms">Choose a sorting algorithm for the left player:</label>
                             <select name="algorithms" id="algorithms" onChange={e => this.setState({left_choice: e.target.value})}>
-                            <option value="bubble">Bubble Sort</option>
-                            <option value="select">Select Sort</option>
+                                <option value="bubble">Bubble Sort</option>
+                                <option value="select">Select Sort</option>
+                                <option value="insertion">Insertion Sort</option>
                             </select>
                         </div>
                         <div>
                             <label htmlFor="algorithms">Choose a sorting algorithm for the right player:</label>
                             <select name="algorithms" id="algorithms" onChange={e => this.setState({right_choice: e.target.value})}>
-                            <option value="bubble">Bubble Sort</option>
-                            <option value="select">Select Sort</option>
+                                <option value="bubble">Bubble Sort</option>
+                                <option value="select">Select Sort</option>
+                                <option value="insertion">Insertion Sort</option>
                             </select>
                         </div>
                         <div className="numbers">
@@ -278,16 +391,14 @@ class Game extends Component {
 
                             <div className='player-sides'>
                                 <div className="left-player">
-                                    <div className="array">
-                                        {this.state.left_algo.numbers.map((num, index) => {return(<li key={index}>{num}</li>)})}
+                                    <div className={this.state.left_incorrect ? "frozen" : "unfrozen"}>
+                                        {this.getDisplay(this.state.left_algo)}
                                     </div>
-                                    {this.getDisplay(this.state.left_algo)}
                                 </div>
                                 <div className="right-player">
-                                    <div className="array">
-                                        {this.state.right_algo.numbers.map((num, index) => {return(<li key={index}>{num}</li>)})}
+                                    <div className={this.state.right_incorrect ? "frozen" : "unfrozen"}>
+                                        {this.getDisplay(this.state.right_algo)}
                                     </div>
-                                    {this.getDisplay(this.state.right_algo)}
                                 </div>
                             </div>
                         </div> : 

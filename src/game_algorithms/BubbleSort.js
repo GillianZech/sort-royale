@@ -1,5 +1,9 @@
-class BubbleMulti {
+import BaseAlgo from './BaseAlgo.js';
+
+class BubbleSort extends BaseAlgo {
     constructor (numbers) {
+        super();
+
         this.numbers = numbers
         this.left = 0
         this.right = 1
@@ -30,11 +34,13 @@ class BubbleMulti {
     }
     
     checkCorrect(key) {
+        // For bubble sort duplicates, they should not be swapped
         if (key === "a" || key === 'ArrowLeft') {
-            // Check if left number is smaller
+            // Check if left number is smaller or the same (no swap)
             return this.numbers[this.left] <= this.numbers[this.right]
         } else if (key === "d" || key === 'ArrowRight') {
-            return this.numbers[this.right] <= this.numbers[this.left]
+            // Check if the right number is smaller (swap)
+            return this.numbers[this.right] < this.numbers[this.left]
         }
     }
 
@@ -45,4 +51,4 @@ class BubbleMulti {
     }
 }
 
-export default BubbleMulti;
+export default BubbleSort;
