@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/sort-royale/static/css/main.75ad31c3.css",
+    "main.js": "/sort-royale/static/js/main.b67d3152.js",
+    "static/media/Gaming-0_generated.jpg": "/sort-royale/static/media/Gaming-0_generated.7f9d8870953220f92f89.jpg",
+    "index.html": "/sort-royale/index.html",
+    "main.75ad31c3.css.map": "/sort-royale/static/css/main.75ad31c3.css.map",
+    "main.b67d3152.js.map": "/sort-royale/static/js/main.b67d3152.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.75ad31c3.css",
+    "static/js/main.b67d3152.js"
+  ]
+}
